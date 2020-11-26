@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- Example usage of Weather API-->
+    <head>
+        <script src ="./weatherApi.js"></script>
+    </head>
+    <body>
+        <script>
+            // First input: cityName
+            // Second input: function to call after api response
+            getCityWeather("London", function (response) {
+                
+                // How to parse information from response:
+
+                var country = response.country;
+                var region =  response.region;
+                var name = response.name;
+                var condition = response.condition
+                var local_time = response.local_time
+                var temp_f = response.temp_f;
+                var feelslike_f = response.feelslike_f;
+                var humidity = response.humidity;
+                var uv = response.uv;
+
+                console.log("country: ", country);
+                console.log("region: ", region);
+                console.log("name: ", name);
+                console.log("condition: ", condition);
+                console.log("local_time: ", local_time);
+                console.log("temp_f: ", temp_f);
+                console.log("feelslike_f: ", feelslike_f);
+                console.log("humidity: ", humidity);
+                console.log("uv: ", uv);
+            })
+        </script>
+    </body>
+</html>
