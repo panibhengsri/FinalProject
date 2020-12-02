@@ -16,7 +16,6 @@
   "bugs": {
     "url": "https://github.com/panibhengsri/FinalProject/issues"
   },
-  "homepage": "https://github.com/panibhengsri/FinalProject#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
