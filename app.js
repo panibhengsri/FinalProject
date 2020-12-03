@@ -16,11 +16,8 @@ app.use("*", function (req, res, next) {
 });
 
 // divert all other routing to react app
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/../frontend/our-app/build/index.html'));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
-// 
-app.use('/static', express.static(path.join(__dirname, "/../frontend/our-app/build/static")));
-app.use('/manifest.json', express.static(path.join(__dirname, "/../frontend/our-app/build", "manifest.json")))
 
 module.exports = app;
