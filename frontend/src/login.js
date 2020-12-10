@@ -31,25 +31,25 @@ class Login extends React.Component{
         });
     }
 
-    login(){
-        //provider should be Google Auth Provider
-        auth.signInWithPopup(provider)
-            .then((result)=>{
-                const user = result.user;
-                this.setState({
-                    user
-                });
-            });
-    }
+    // login(){
+    //     //provider should be Google Auth Provider
+    //     auth.signInWithPopup(provider)
+    //         .then((result)=>{
+    //             const user = result.user;
+    //             this.setState({
+    //                 user
+    //             });
+    //         });
+    // }
 
-    logout(){
-        auth.signOut()
-            .then(()=>{
-                this.setState({
-                    user:null
-                });
-            });
-    }
+    // logout(){
+    //     auth.signOut()
+    //         .then(()=>{
+    //             this.setState({
+    //                 user:null
+    //             });
+    //         });
+    // }
 
     render(){
         return(
