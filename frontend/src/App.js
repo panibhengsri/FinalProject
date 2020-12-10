@@ -1,6 +1,8 @@
 
 import React, { useRef, useState } from 'react';
 import './App.css';
+import Login from './components/login.js'
+import routes from './components/routes.js';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
