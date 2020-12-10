@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import GoogleLogin from 'react-google-login'
 
-export class Login extends Component{
+export class Login extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -98,4 +98,4 @@ export class Login extends Component{
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+export default Login;
