@@ -81,7 +81,7 @@ function AddList() {
   const dummy = useRef();
   const me = firestore.collection(myID);
   const locc = me.doc('locations');
-  var locArr =[1,2,3,4]; 
+  var locArr =[]; 
   (async function() )
   await locc.onSnapshot(docSnapshot => {
     locArr = docSnapshot.data().locations;
