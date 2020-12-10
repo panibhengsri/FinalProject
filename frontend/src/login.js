@@ -5,6 +5,7 @@ export class Login extends Component{
     constructor(){
         super();
         this.state = {
+            loggedIn: false,
             username: '',
             password: '',
             locations: [],
@@ -12,6 +13,10 @@ export class Login extends Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    onLoginClick = () => {
+        this.setState({loggedIn: true})
     }
 
     handleChange(e){
@@ -56,16 +61,17 @@ export class Login extends Component{
 
     render(){
         return(
-					<div className="container">
+		<div className="container">
             <form onSubmit={this.handleSubmit}>
                 <h2>Sign In</h2>
-                <p>If you don't have an account, click 'Register' below or sign-in using Google!</p>
+                <p>If you don't have an account, please sign-in using Google!</p>
                 <input 
                     type="text" 
                     ref="username" 
                     placeholder="username"
                     onChange={this.handleChange}
                     value={this.state.username}
+                    required
                 /><br/>
                 <input 
                     type="password" 
@@ -73,10 +79,11 @@ export class Login extends Component{
                     placeholder="password"
                     onChange={this.handleChange}
                     value={this.state.password}
+                    required
                 /><br/>
                 <input type="submit" value="login"/>
             </form>
-				<button type="button">sign-up</button>
+				<button type="button" onclick={this.props.onLoginClick}>google placeholder</button>
 						
 				<GoogleLogin
                     //!!need OAuth ClientID from Firebase
