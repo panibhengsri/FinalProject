@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import './App.css';
 import Login from './components/login.js'
-import routes from './components/routes.js';
+// import routes from './components/routes.js';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -38,98 +38,26 @@ function App() {
   return (
     <div className="App">
         <header>
-        <h1>Our REACT APP</h1>
+          <h1>Our REACT APP</h1>
 
-        <ul className="locay" ref={locayRef} id="locay"></ul>
-        <SignOut />
-      </header>
-
-      <section>
-        {user ? <AddList /> : <SignIn />}
-      </section>
+          <ul className="locay" ref={locayRef} id="locay"></ul>
+          <SignOut />
+        </header>
+        <Login auth = {auth} firestore = {firestore} user = {user}></Login>
+      {/* <section> */}
+        {/* {user ? <AddList /> : <SignIn />} */}
+        {/*  */}
+      {/* </section> */}
 
     </div>
   );
 }
 
-function SignIn() {
-
-  const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
-  }
-  
-
-  return (
-    <>
-      <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
-      <p>Do not violate the community guidelines or you will be banned for life!</p>
-    </>
-  )
-
-}
 
 function SignOut() {
   return auth.currentUser && (
     <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
   )
-}
-
-
-function AddList() {
-
-  const myID = auth.currentUser.uid;
-  const container =  document.querySelector('ul.locay');
-  const dummy = useRef();
-  const me = firestore.collection(myID);
-  const locc = me.doc('locations');
-  var locArr =[]; 
-  (async function() )
-  await locc.onSnapshot(docSnapshot => {
-    locArr = docSnapshot.data().locations;
-
-  });
-
-   
-  const [formValue, setFormValue] = useState('');
-
-
-  const sendMessage = async (e) => {
-    e.preventDefault();
-
-    const placeholder = "comp20";
-   
-    // adds new location to array
-    locc.update({
-      locations: firebase.firestore.FieldValue.arrayUnion(placeholder)
-    });
-
-    setFormValue('');
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  return (<>
-    <main>
-    <div>
-        {locArr.map( (element) => {
-            return <div> {element} </div>
-        })}
-      </div>
-
-    
-
-      <span ref={dummy}></span>
-
-    </main>
-
-    <form onSubmit={sendMessage}>
-
-      <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
-      
-      <button type="submit" disabled={!formValue}>🕊️</button>
-
-    </form>
-  </>)
 }
 
 
