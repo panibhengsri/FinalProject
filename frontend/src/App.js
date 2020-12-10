@@ -81,19 +81,25 @@ function AddList() {
   const dummy = useRef();
   const me = firestore.collection(myID);
   const locc = me.doc('locations');
-  const [locations] = useCollectionData(me);
+  var locArr =[1,2,3,4]; 
+  (async function() )
+  await locc.onSnapshot(docSnapshot => {
+    locArr = docSnapshot.data().locations;
 
+  });
+
+   
   const [formValue, setFormValue] = useState('');
 
 
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const loc = "comp20";
+    const placeholder = "comp20";
    
     // adds new location to array
     locc.update({
-      locations: firebase.firestore.FieldValue.arrayUnion(loc)
+      locations: firebase.firestore.FieldValue.arrayUnion(placeholder)
     });
 
     setFormValue('');
@@ -102,7 +108,13 @@ function AddList() {
 
   return (<>
     <main>
-  container.innerhtml = <li>() => { return locc.locations} locations.map(locations => <div>{locations.loaction}</div>)</li>
+    <div>
+        {locArr.map( (element) => {
+            return <div> {element} </div>
+        })}
+      </div>
+
+    
 
       <span ref={dummy}></span>
 
@@ -111,7 +123,7 @@ function AddList() {
     <form onSubmit={sendMessage}>
 
       <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
-
+      
       <button type="submit" disabled={!formValue}>🕊️</button>
 
     </form>
