@@ -1,7 +1,11 @@
-class Login extends React.Component{
+import React, {Component} from 'react';
+import GoogleLogin from 'react-google-login'
+
+export class Login extends Component{
     constructor(){
         super();
         this.state = {
+            loggedIn: false,
             username: '',
             password: '',
             locations: [],
@@ -9,6 +13,10 @@ class Login extends React.Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    onLoginClick = () => {
+        this.setState({loggedIn: true})
     }
 
     handleChange(e){
@@ -31,50 +39,63 @@ class Login extends React.Component{
         });
     }
 
-    login(){
-        //provider should be Google Auth Provider
-        auth.signInWithPopup(provider)
-            .then((result)=>{
-                const user = result.user;
-                this.setState({
-                    user
-                });
-            });
-    }
+    // login(){
+    //     //provider should be Google Auth Provider
+    //     auth.signInWithPopup(provider)
+    //         .then((result)=>{
+    //             const user = result.user;
+    //             this.setState({
+    //                 user
+    //             });
+    //         });
+    // }
 
-    logout(){
-        auth.signOut()
-            .then(()=>{
-                this.setState({
-                    user:null
-                });
-            });
-    }
+    // logout(){
+    //     auth.signOut()
+    //         .then(()=>{
+    //             this.setState({
+    //                 user:null
+    //             });
+    //         });
+    // }
 
     render(){
         return(
+		<div className="container">
             <form onSubmit={this.handleSubmit}>
                 <h2>Sign In</h2>
-                <p>If you don't have an account, click 'Register' below or sign-in using Google!</p>
+                <p>If you don't have an account, please sign-in using Google!</p>
                 <input 
                     type="text" 
                     ref="username" 
                     placeholder="username"
                     onChange={this.handleChange}
                     value={this.state.username}
-                />
+                    required
+                /><br/>
                 <input 
                     type="password" 
                     ref="password" 
                     placeholder="password"
                     onChange={this.handleChange}
                     value={this.state.password}
-                />
+                    required
+                /><br/>
                 <input type="submit" value="login"/>
             </form>
+				<button type="button" onclick={this.props.onLoginClick}>google placeholder</button>
+						
+				<GoogleLogin
+                    //!!need OAuth ClientID from Firebase
+                    clientId = ''
+                    buttonText = "Login"
+                    onSuccess = {this.responseGoogle}
+                    onFailure = {this.responseGoogle}
+                    cookiePolicy = {'single_host_origin'}
+                />
+					</div>
         )
     }
 }
 
-ReactDOM.render(<App/>)
-document.getElementById('app');
+ReactDOM.render(<App/>, document.getElementById('app'));
