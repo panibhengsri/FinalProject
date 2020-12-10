@@ -1,5 +1,8 @@
 import React from 'react';
-import GoogleLogin from 'react-google-login'
+import GoogleLogin from 'react-google-login';
+import {
+    BrowserRouter as Router, Route
+} from "react-router-dom";
 
 export class Login extends React.Component{
     constructor(){
@@ -63,6 +66,7 @@ export class Login extends React.Component{
         return(
 		<div className="container">
             <form onSubmit={this.handleSubmit}>
+                {this.props.children}
                 <h2>Sign In</h2>
                 <p>If you don't have an account, please sign-in using Google!</p>
                 <input 
@@ -83,7 +87,6 @@ export class Login extends React.Component{
                 /><br/>
                 <input type="submit" value="login"/>
             </form>
-				{/* <button type="button" onclick={this.props.onLoginClick}>google placeholder</button> */}
 						
 				<GoogleLogin
                     //!!need OAuth ClientID from Firebase
