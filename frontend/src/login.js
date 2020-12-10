@@ -27,12 +27,12 @@ export class Login extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-        const userRef = firebase.database().ref('users');
+        // const userRef = firebase.database().ref('users');
         const user = {
             currentUser: this.state.username,
             currentPassword: this.state.password
         }
-        userRef.push(user);
+        // userRef.push(user);
         this.setState({
             username: '',
             password: ''
@@ -83,7 +83,7 @@ export class Login extends React.Component{
                 /><br/>
                 <input type="submit" value="login"/>
             </form>
-				<button type="button" onclick={this.props.onLoginClick}>google placeholder</button>
+				{/* <button type="button" onclick={this.props.onLoginClick}>google placeholder</button> */}
 						
 				<GoogleLogin
                     //!!need OAuth ClientID from Firebase
