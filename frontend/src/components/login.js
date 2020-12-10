@@ -122,7 +122,7 @@ class Login extends React.Component{
                 <input type="submit" value="login"/>
             </form>
             <section>
-                {this.props.user ? <AddList /> : <SignIn auth = {this.props.auth}/>}
+                {this.props.user ? <AddList firestore={this.props.firestore} auth = {this.props.auth} /> : <SignIn auth = {this.props.auth}/>}
             </section>
         {/* COMMENTED GOOGLE LOGIN (JEREMY JUNG) */}
 				{/* <GoogleLogin 
