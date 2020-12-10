@@ -1,6 +1,7 @@
+import React, {Component} from 'react';
 import GoogleLogin from 'react-google-login'
 
-class Login extends React.Component{
+export class Login extends Component{
     constructor(){
         super();
         this.state = {
@@ -53,13 +54,9 @@ class Login extends React.Component{
     //         });
     // }
 
-    responseGoogle=(response)=>{
-        console.log(response);
-        console.log(response.profileObj);
-    }
-
     render(){
         return(
+					<div className="container">
             <form onSubmit={this.handleSubmit}>
                 <h2>Sign In</h2>
                 <p>If you don't have an account, click 'Register' below or sign-in using Google!</p>
@@ -76,19 +73,22 @@ class Login extends React.Component{
                     placeholder="password"
                     onChange={this.handleChange}
                     value={this.state.password}
-                />
+                /><br/>
                 <input type="submit" value="login"/>
-                <GoogleLogin
-                    //!!need ClientID from Firebase
+            </form>
+				<button type="button">sign-up</button>
+						
+				<GoogleLogin
+                    //!!need OAuth ClientID from Firebase
                     clientId = ''
                     buttonText = "Login"
                     onSuccess = {this.responseGoogle}
                     onFailure = {this.responseGoogle}
                     cookiePolicy = {'single_host_origin'}
                 />
-            </form>
+					</div>
         )
     }
-} 
+}
 
 ReactDOM.render(<App/>, document.getElementById('app'));
