@@ -1,10 +1,10 @@
 import React from 'react';
-import GoogleLogin from 'react-google-login';
+// import GoogleLogin from 'react-google-login';    // COMMENTED BY JEREMY JUNG
 import {
     BrowserRouter as Router, Route
 } from "react-router-dom";
 
-export class Login extends React.Component{
+class Login extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -87,15 +87,15 @@ export class Login extends React.Component{
                 /><br/>
                 <input type="submit" value="login"/>
             </form>
-						
-				<GoogleLogin
+        {/* COMMENTED GOOGLE LOGIN (JEREMY JUNG) */}
+				{/* <GoogleLogin 
                     //!!need OAuth ClientID from Firebase
                     clientId = ''
                     buttonText = "Login"
                     onSuccess = {this.responseGoogle}
                     onFailure = {this.responseGoogle}
                     cookiePolicy = {'single_host_origin'}
-                />
+                /> */}
 					</div>
         )
     }
