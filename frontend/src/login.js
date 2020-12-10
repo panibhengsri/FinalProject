@@ -66,7 +66,7 @@ export class Login extends Component{
                     placeholder="username"
                     onChange={this.handleChange}
                     value={this.state.username}
-                />
+                /><br/>
                 <input 
                     type="password" 
                     ref="password" 
