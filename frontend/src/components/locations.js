@@ -7,3 +7,20 @@ import {
 ReactDOM.render(
     
 );
+
+class Locations extends React.Component {
+    constructor (props) {
+        super(props);
+    }
+
+    render () {
+        return (
+            <div>
+                Testing locations
+            </div>
+        )
+    }
+}
+
+export default Locations;
+
