@@ -4,10 +4,11 @@ import ProgressBar from "./progressBar.js";
 
 export class Result extends React.Component{
     constructor(props){
-        super(props)
+        super(props);
         this.state={
             details: false
-        }
+        };
+        this.learnMore = this.learnMore.bind(this);
     }
 
     learnMore() {
@@ -16,7 +17,7 @@ export class Result extends React.Component{
 
     render(){
         return(
-            <div>
+            
                  <div class="simpleResult">
                     <h2>8/10</h2>
                     <div>
@@ -26,7 +27,8 @@ export class Result extends React.Component{
                      <button onClick={this.learnMore}>see why</button>
                      </div>
                  </div>
-            
+        )
+                return(
                 <div class="detailedResult">
                     <div class="individualResult">
                         <p style= {{marginRight: '20px'}}>UV INDEX</p>
@@ -49,9 +51,8 @@ export class Result extends React.Component{
                         <p style={{marginLeft: '20px', width: '30px'}}>10.0</p>
                     </div>
                 </div>
-            </div>
-        )
-    }
+                )
+            }
 
 
 }
