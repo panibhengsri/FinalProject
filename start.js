@@ -1,3 +1,7 @@
+/*  Set up web server either locally or in host environment
+    Created by Jeremy Jung 7/12/2020
+*/
+
 const app = require('./app');
 
 app.set('port', process.env.PORT || 7777);

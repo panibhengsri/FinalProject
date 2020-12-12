@@ -1,34 +1,3 @@
-
-/** Send an xhr
- * @param {string} method 
- * @param {string} URL 
- * @param {string} body OPTIONAL
- * @returns {XMLHttpRequest} 
- */
-const sendXHR = (method, URL, body) => {
-
-    var request = new XMLHttpRequest();
-
-    request.open(method, URL, true);
-    
-    // body is undefined send GET request
-    if (body === undefined) {
-        request.setRequestHeader("Accept", "application/json");
-        request.send();
-    }
-    // body is defined, send POST, PUT, etc. request
-    else {
-        request.setRequestHeader("Content-type", "application/json");
-        var requestBody = JSON.stringify(body);
-        try {
-            request.send(requestBody);
-        } catch (e) {
-            console.log("error sending request:", request.response);
-        }
-    }
-    return request;
-}
-
 /** Get the weather information of a city
  * @param {string} cityName 
  * @param {function} callback with argument as parsed information
@@ -50,7 +19,7 @@ const getCityWeather = async (cityName, callback) => {
     var urlBase = "http://api.weatherapi.com/v1/current.json?key=";
     var query = "&q=";
     var urlConcat = urlBase + key + query + cityName;
-
+      
     var request = await sendXHR("GET", urlConcat); // send request
 
     request.onload = function () {

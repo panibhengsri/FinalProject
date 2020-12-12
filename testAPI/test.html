@@ -1,10 +1,75 @@
 <!DOCTYPE html>
 <!-- Example usage of Weather API-->
     <head>
+        <script src="./xhr.js"></script>
         <script src ="./weatherApi.js"></script>
+        <script src="./covidApi.js"></script>
     </head>
     <body>
         <script>
+            // WHO guidelines say we want case positivity rates to be below 5% (measures the percentage
+            // of total tests conducted that are coming back positive)
+            // high positive rates mean not enough visibility ( not enough testing being done)
+
+            // this means CASE COUNTS are either reliable or not
+
+            const getCountryAqiInfo = async (country, callback) => {
+                let apikey = "f404ea3d-b343-476f-ac51-9f8598670a2e";
+
+                var request = await sendXHR("GET", urlConcat); // send request
+
+                request.onload = function () {
+
+                    var responseRaw = request.response;
+                    var responseParsed = JSON.parse(responseRaw);
+
+                    var responseFiltered = {};
+                    // responseFiltered["name"] = responseParsed.country;
+                    // responseFiltered["todayCases"] = responseParsed.todayCases;
+
+                    // parse api response with necessary information
+                    // var responseParsed = {};
+                    // execute callback function
+                    callback(responseParsed);
+                }
+
+            }
+            
+            const getAllCountriesAqi = async (callback) => {
+                let apikey = "f404ea3d-b343-476f-ac51-9f8598670a2e";
+                let url = ""
+                var request = await sendXHR("GET", urlConcat); // send request
+
+                request.onload = function () {
+
+                    var responseRaw = request.response;
+                    var responseParsed = JSON.parse(responseRaw);
+
+                    var responseFiltered = {};
+                    // responseFiltered["name"] = responseParsed.country;
+                    // responseFiltered["todayCases"] = responseParsed.todayCases;
+
+                    // parse api response with necessary information
+                    // var responseParsed = {};
+                    // execute callback function
+                    callback(responseParsed);
+                }
+            }
+
+            getAllCountriesCovid( function (response) {
+                console.log("Countries: ", response);
+                
+            })
+
+            getCountryCovidInfo("South Africa", function (response) {
+                console.log("Country Covid Info: " ,response);
+            });
+
+            getStateCovidInfo("ca", function (response) {
+                console.log("State Covid Info: ", response);
+            })
+
+
             // First input: cityName
             // Second input: function to call after api response
             getCityWeather("London", function (response) {

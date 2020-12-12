@@ -5,10 +5,22 @@ import {
 } from "react-router-dom";
 import Login from './components/App';
 
+ReactDOM.render(
+    
+);
 
+class Locations extends React.Component {
+    constructor (props) {
+        super(props);
+    }
 
-// ReactDOM.render(
-//     <Router>
-       
-//     </Router>
-// );
+    render () {
+        return (
+            <div>
+                Testing locations
+            </div>
+        )
+    }
+}
+
+export default Locations;
