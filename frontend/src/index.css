@@ -50,3 +50,25 @@ code {
   color: #000;
   border-radius: 5px;
 }
+
+.simpleResult {
+  display:flex;
+  height: 100%;
+}
+
+.simpleResult h2{
+  color: #ffff;
+  padding: 20px;
+  margin: 20px 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 100px;
+}
+
+.simpleResult p{
+  color: #ffff;
+}
+
+.simpleResult button{
+  border: 0;
+  padding: 10px;
+}
