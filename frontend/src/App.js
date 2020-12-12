@@ -2,7 +2,8 @@
 import React, { useRef, useState } from 'react';
 import './App.css';
 import Login from './components/login.js'
-// import routes from './components/routes.js';
+import Result from './components/result.js'
+import routes from './components/routes.js';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -37,6 +38,9 @@ function App() {
 
   return (
     <div className="App">
+
+      <Result></Result>
+        {/* <Login></Login> */}
         <header>
           <h1>Our REACT APP</h1>
 
