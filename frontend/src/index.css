@@ -15,6 +15,10 @@ code {
     monospace;
 }
 
+div{
+  justify-content: center;
+}
+
 .container{
   text-align: center;
   margin-top: 100px;
@@ -31,7 +35,7 @@ code {
 
 .container p {
   font-size: 12px;
-  padding: 10px;
+  margin-top: 50px;
 }
 
 .container input {
@@ -54,6 +58,7 @@ code {
 .simpleResult {
   display:flex;
   height: 100%;
+  padding: 20px;
 }
 
 .simpleResult h2{
@@ -69,6 +74,27 @@ code {
 }
 
 .simpleResult button{
-  border: 0;
-  padding: 10px;
+  border: 10px;
+  padding: 7px;
+  font-size: 12px;
+  color: #000;
+  border-radius: 5px;
+}
+
+.detailedResult{
+  background: rgba(255,255,255,0.1);
+}
+
+.detailedResult p{
+  display: flex;
+  color: #ffff;
+  width: 100px;
+  margin-top: 10px;
+}
+
+.detailedResult .individualResult {
+  padding: 20px;
+  justify-content: center;
+  /* background: rgba(255,255,255,0.3); */
+  display: flex;
 }
