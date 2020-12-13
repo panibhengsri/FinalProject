@@ -63,34 +63,35 @@ router.get('/countries', async (req, res) => {
 
 })
 
-router.get('/rate', async (req, res) => {
+router.get('/rate/state', async (req, res) => {
     let location = req.query.location;
-    let worldOption = req.query.world;
     console.log("location: ", location);
-    console.log("world: ", worldOption);
+
+    covidApi.getStateCovidInfo(location, function (covidResponse) {
+        console.log(covidResponse)
+        // Get capital city from state
+        let capital = utils.statesCityMap[location];
+        console.log("capital: ", capital);
+        weatherApi.getCityWeather(capital, function (weatherResponse) {
+            let ratings = utils.rateForState(covidResponse, weatherResponse);
+            res.json(ratings);
+        })
+    })
+})
+
+router.get('/rate/country', async (req, res) => {
+    let location = req.query.location;
+    console.log("location: ", location);
+
+    covidApi.getCountryCovidInfo(location, function (covidResponse){
+        let capital = utils.countriesCityMap[location];
+        console.log("capital: ", capital);
+        weatherApi.getCityWeather(capital, function (weatherResponse) {
+            let ratings = utils.rateForCountry(covidResponse, weatherResponse);
+            res.json(ratings);
+        })
+    })
     
-    if (worldOption == "state") {
-        covidApi.getStateCovidInfo(location, function (covidResponse) {
-            console.log(covidResponse)
-            // Get capital city from state
-            let capital = utils.statesCityMap[location];
-            console.log("capital: ", capital);
-            weatherApi.getCityWeather(capital, function (weatherResponse) {
-                let ratings = utils.rateForState(covidResponse, weatherResponse);
-                res.json(ratings);
-            })
-        })
-    }
-    else {
-        covidApi.getCountryCovidInfo(location, function (covidResponse){
-            let capital = utils.countriesCityMap[location];
-            console.log("capital: ", capital);
-            weatherApi.getCityWeather(capital, function (weatherResponse) {
-                let ratings = utils.rateForCountry(covidResponse, weatherResponse);
-                res.json(ratings);
-            })
-        })
-    }
 
 })
 
