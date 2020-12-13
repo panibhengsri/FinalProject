@@ -2,7 +2,7 @@
     Created by Jeremy Jung 7/12/2020 
 */
 
-const https = require('https');
+const https = require('http');
 
 /** Get the weather information of a city
  * @param {string} cityName 
@@ -25,6 +25,7 @@ const getCityWeather = async (cityName, callback) => {
     var urlBase = "http://api.weatherapi.com/v1/current.json?key=";
     var query = "&q=";
     var urlConcat = urlBase + key + query + cityName;
+    // console.log(cityName);
     // var request = await sendXHR("GET", urlConcat); // send request
 
     https.get(urlConcat, (res) => {
@@ -36,22 +37,28 @@ const getCityWeather = async (cityName, callback) => {
         })
 
         res.on('end', function () {
-            var responseRaw = JSON.parse(dataConcat);
+            try {
+                var responseRaw = JSON.parse(dataConcat);
 
-            // parse api response with necessary information
-            var responseParsed = {};
-            responseParsed["name"] = responseRaw.location.name;
-            responseParsed["region"] = responseRaw.location.region;
-            responseParsed["country"] = responseRaw.location.country;
-            responseParsed["local_time"] = responseRaw.location.localtime;
-            responseParsed["condition"] = responseRaw.current.condition.text;
-            responseParsed["humidity"] = responseRaw.current.humidity;
-            responseParsed["uv"] = responseRaw.current.uv;
-            responseParsed["temp_f"] = responseRaw.current.temp_f;
-            responseParsed["feelslike_f"] = responseRaw.current.feelslike_f;
+                // parse api response with necessary information
+                var responseParsed = {};
+                responseParsed["name"] = responseRaw.location.name;
+                responseParsed["region"] = responseRaw.location.region;
+                responseParsed["country"] = responseRaw.location.country;
+                responseParsed["local_time"] = responseRaw.location.localtime;
+                responseParsed["condition"] = responseRaw.current.condition.text;
+                responseParsed["humidity"] = responseRaw.current.humidity;
+                responseParsed["uv"] = responseRaw.current.uv;
+                responseParsed["temp_f"] = responseRaw.current.temp_f;
+                responseParsed["feelslike_f"] = responseRaw.current.feelslike_f;
 
-            // execute callback function
-            callback(responseParsed);
+                // execute callback function
+                callback(responseParsed);
+            }
+            catch(e) {
+                console.log("Error in weather API looking for city: ", cityName);
+                console.log("Error message: ", dataConcat);
+            }
         })
     })
 }
