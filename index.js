@@ -8,11 +8,11 @@ const router = express.Router();
 const covidApi = require('./API/covidApi.js');
 const weatherApi = require('./API/weatherApi.js');
 const utils = require('./utils.js');
+const test = require('./utilsTest.js');
 /*
 * USAGE: {baseurl}/api/states
 * */
 router.get('/states', async (req, res) => {
-
     covidApi.getAllStatesCovid( (states) => {
         if (states != undefined) {
             res.status(200);
@@ -40,9 +40,8 @@ router.get('/states', async (req, res) => {
 * USAGE: {baseurl}/api/countries
 * */
 router.get('/countries', async (req, res) => {
-
-    covidApi.getAllCountriesCovid((countries) => {
-        if (countries != undefined) {
+    test.getPassingCountries((countries) => {
+        if (countries.length > 0) {
             res.status(200);
 
             let response = {
@@ -60,8 +59,8 @@ router.get('/countries', async (req, res) => {
 
             res.send(response);
         }
-
     })
+
 })
 
 router.get('/rate', async (req, res) => {

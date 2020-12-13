@@ -27,6 +27,24 @@ const testCovidCountriesToCountriesCityMap = () => {
     })
 }
 
+const getPassingCountries = (callback) => {
+    // get Country to Capital mapping
+    let countriesCityMap = utils.countriesCityMap;
+    // get Countries list from COVID databse
+    covidApi.getAllCountriesCovid((countries) => {
+        
+        let passingCountries = [];
+        // only add countries that exist in both countriesCityMap and COVID database
+        for (let index in countries) {
+            let name = countries[index];
+            if (countriesCityMap[name] != undefined)
+                passingCountries.push(name);
+        }
+
+        callback(passingCountries);
+    })
+}
+
 const testTemperature = () => {
     let lowestTemp = -459;
     let highestTemp = 134;
@@ -74,3 +92,5 @@ const runTests = () => {
 }
 
 runTests();
+
+module.exports.getPassingCountries = getPassingCountries;
