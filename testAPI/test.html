@@ -7,6 +7,7 @@
     </head>
     <body>
         <script>
+            "use strict";
             // WHO guidelines say we want case positivity rates to be below 5% (measures the percentage
             // of total tests conducted that are coming back positive)
             // high positive rates mean not enough visibility ( not enough testing being done)
@@ -59,6 +60,10 @@
             getAllCountriesCovid( function (response) {
                 console.log("Countries: ", response);
                 
+            })
+
+            getAllStatesCovid( function(response) {
+                console.log("States: ", response);
             })
 
             getCountryCovidInfo("South Africa", function (response) {

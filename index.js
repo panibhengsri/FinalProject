@@ -7,7 +7,7 @@ const router = express.Router();
 
 const covidApi = require('./API/covidApi.js');
 const weatherApi = require('./API/weatherApi.js');
-
+const utils = require('./utils.js');
 /*
 * USAGE: {baseurl}/api/states
 * */
@@ -41,12 +41,12 @@ router.get('/states', async (req, res) => {
 * */
 router.get('/countries', async (req, res) => {
 
-    covidApi.getAllCountriesCovid((states) => {
-        if (states != undefined) {
+    covidApi.getAllCountriesCovid((countries) => {
+        if (countries != undefined) {
             res.status(200);
 
             let response = {
-                places: states
+                places: countries
             }
 
             res.send(response);
@@ -64,6 +64,35 @@ router.get('/countries', async (req, res) => {
     })
 })
 
+router.get('/rate', async (req, res) => {
+    let location = req.query.location;
+    let worldOption = req.query.world;
+    console.log("location: ", location);
+    console.log("world: ", worldOption);
+    
+    if (worldOption == "state") {
+        covidApi.getStateCovidInfo(location, function (covidResponse) {
+            console.log(covidResponse)
+            // Get capital city from state
+            let capital = utils.statesCityMap[location];
+            console.log("capital: ", capital);
+            weatherApi.getCityWeather(capital, function (weatherResponse) {
+                let ratings = utils.rateForState(covidResponse, weatherResponse);
+                res.json(ratings);
+            })
+        })
+    }
+    else {
+        covidApi.getCountryCovidInfo(location, function (covidResponse){
+            let capital = utils.countriesCityMap[location];
+            console.log("capital: ", capital);
+            weatherApi.getCityWeather(capital, function (weatherResponse) {
+                let ratings = utils.rateForCountry(covidResponse, weatherResponse);
+                res.json(ratings);
+            })
+        })
+    }
 
+})
 
 module.exports = router;
