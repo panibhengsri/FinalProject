@@ -30,27 +30,46 @@ class Login extends React.Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.SignIn = this.SignIn.bind(this);
         // this.AddList = this.AddList.bind(this);
         // const [user] = useAuthState(this.props.auth);
     }
 
-    SignIn = () => {
+    
+        // this.props.firestore.collection(this.props.auth.currentUser.uid).add({
+        //     locations: []
+        // })
 
-        const signInWithGoogle = () => {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            this.props.auth.signInWithPopup(provider);
-        }
+        // (async () => {
+        //     const check = await this.props.firestore.collection("users").doc(this.props.auth.currentUser.uid);
+        //     check.get().then(docTemp => {
+        //             if (!docTemp.exists) {
+        //                 // create a collection 
+        //                 this.props.firestore.collection("users").doc(this.props.auth.currentUser.uid).add({
+        //                     locations: []
+        //                 });
+        
+        //             } 
+        //         }); 
+        // }) ();
 
+        // // this.props.firestore.collection(this.props.auth.currentUser.uid).doc("locations").set(data);
+        // const check = this.props.firestore.collection("users").doc(this.props.auth.currentUser.uid);
+        // check.get().then(docTemp => {
+        //     if (!docTemp.exists) {
+        //         // create a collection 
+        //         this.props.firestore.collection("users").doc(this.props.auth.currentUser.uid).add({
+        //             locations: []
+        //         });
 
-        return (
-            <>
-                <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
-                <p>Do not violate the community guidelines or you will be banned for life!</p>
-            </>
-        )
+        //     } 
+        // }); 
 
-    }
+        // // this.props.firestore.collection('users').doc(this.props.auth.currentUser.uid).update({
+        // //     locations: firebase.firestore.FieldValue.arrayUnion(null)
+        // // });
+        
+
+     
 
     onLoginClick = () => {
         this.setState({loggedIn: true})
@@ -76,25 +95,7 @@ class Login extends React.Component{
         });
     }
 
-    // login(){
-    //     //provider should be Google Auth Provider
-    //     auth.signInWithPopup(provider)
-    //         .then((result)=>{
-    //             const user = result.user;
-    //             this.setState({
-    //                 user
-    //             });
-    //         });
-    // }
-
-    // logout(){
-    //     auth.signOut()
-    //         .then(()=>{
-    //             this.setState({
-    //                 user:null
-    //             });
-    //         });
-    // }
+    
 
     render(){
         return(
@@ -122,7 +123,7 @@ class Login extends React.Component{
                 <input type="submit" value="login"/>
             </form>
             <section>
-                {this.props.user ? <AddList firestore={this.props.firestore} auth = {this.props.auth} /> : <SignIn auth = {this.props.auth}/>}
+                {this.props.user ? <AddList firestore={this.props.firestore} auth = {this.props.auth} /> : <SignIn firestore = {this.props.firestore} auth = {this.props.auth}/>}
             </section>
         {/* COMMENTED GOOGLE LOGIN (JEREMY JUNG) */}
 				{/* <GoogleLogin 
