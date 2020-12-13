@@ -28,3 +28,5 @@ const sendXHR = (method, URL, body) => {
     }
     return request;
 }
+
+exports.sendXHR = sendXHR;
