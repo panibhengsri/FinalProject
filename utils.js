@@ -1,3 +1,7 @@
+/*  COVID API interface
+    Created by Jeremy Jung 13/12/2020
+*/
+
 var statesCityMap = {
     "AK": "Juneau",
     "AL": "Montgomery",

@@ -1,5 +1,5 @@
 /*  Weather API interface
-    Created by Jeremy Jung 7/12/2020 
+    Created by Jeremy Jung 25/11/2020 
 */
 
 const https = require('http');

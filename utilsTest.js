@@ -1,3 +1,7 @@
+/*  COVID API interface
+    Created by Jeremy Jung 13/12/2020
+*/
+
 const utils = require('./utils.js');
 const weatherApi = require('./API/weatherApi.js');
 const covidApi = require('./API/covidApi.js');
