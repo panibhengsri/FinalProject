@@ -46,6 +46,7 @@ function App() {
 
   return (
     <div className="App">
+
       <Router>
         <Switch>
           <Route path = "/result">
