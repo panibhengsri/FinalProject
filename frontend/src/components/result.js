@@ -1,3 +1,7 @@
+/*  Locations list
+    Created on 12/12/2020 by Carys Kong
+*/
+
 import React from 'react';
 import { render } from 'react-dom';
 import ProgressBar from "./progressBar.js";

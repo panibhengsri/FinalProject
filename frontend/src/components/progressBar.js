@@ -1,3 +1,5 @@
+/*  Ratings bar
+*/
 import React from "react";
 
 const ProgressBar = (props) => {
