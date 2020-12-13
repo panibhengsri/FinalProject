@@ -9,3 +9,17 @@
 //         <Route path="/result" component={Result}/>
 //     </Route>
 // );
+
+import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
+import Login from './login.js'
+import Location from './locations.js'
+import Result from './result.js'
+
+
+const Routes = () => {
+// return (
+
+// )
+}
