@@ -49,10 +49,10 @@ class SignIn extends React.Component {
     render = () => {
         return (
             <>
-                <button className = {style.button} onClick={this.signInWithGoogle}>
+                <button onClick={this.signInWithGoogle}>
                     Sign in with Google
                 </button>
-                <p>Do not violate the community guidelines or you will be banned for life!</p>
+                <p style={{marginTop: '5px', color: 'white'}}>Do not violate the community guidelines or you will be banned for life!</p>
             </>
         );
     }
