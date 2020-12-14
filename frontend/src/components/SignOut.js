@@ -1,6 +1,12 @@
 /*  "Signout" button
     Edited on 10/12/2020 by Duncan Chang, Jeremy Jung
 */
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 import style from './button.module.css';
 
@@ -13,7 +19,7 @@ class SignOut extends React.Component {
     }
     render() {
         return this.props.auth.currentUser && (
-            <button className = {style.button} onClick={() => this.props.auth.signOut()}>Sign Out</button> 
+            <Link to = "/" className = {style.button} onClick={() => this.props.auth.signOut()}>Sign Out</Link> 
         );
     }
 
