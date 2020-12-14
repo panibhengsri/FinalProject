@@ -65,6 +65,9 @@ button {
   color: #ffff;
 }
 
+.simpleResult button{
+  font-size: 14px;
+}
 
 .detailedResult{
   background: rgba(255,255,255,0.1);
