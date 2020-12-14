@@ -66,7 +66,7 @@ class AddList extends React.Component {
             if (!docTemp.exists) {
                 // create a collection 
                 this.props.firestore.collection(this.props.auth.currentUser.uid).doc("locations").set({
-                    locations: []
+                    locations: [""]
                 });
 
             } 
