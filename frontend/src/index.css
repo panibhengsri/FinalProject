@@ -47,7 +47,7 @@ div{
   border-radius: 5px;
 }
 
-.container button {
+button {
   border: 10px;
   padding: 5px;
   font-size: 14px;
@@ -71,14 +71,6 @@ div{
 
 .simpleResult p{
   color: #ffff;
-}
-
-.simpleResult button{
-  border: 10px;
-  padding: 7px;
-  font-size: 12px;
-  color: #000;
-  border-radius: 5px;
 }
 
 .detailedResult{

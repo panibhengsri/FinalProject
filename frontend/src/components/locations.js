@@ -5,9 +5,9 @@ import {
 } from "react-router-dom";
 import Login from './login.js';
 
-ReactDOM.render(
+// ReactDOM.render(
     
-);
+// );
 
 class Locations extends React.Component {
     constructor (props) {

@@ -52,7 +52,6 @@ function App() {
       <Router>
         <Switch>
           <Route path = "/result">
-            <Result></Result>
           </Route>
           <Route path="/">
             <h1>Our REACT APP</h1>
