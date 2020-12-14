@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {
     BrowserRouter as Router, Route
 } from "react-router-dom";
-import Login from './login.js';
+import SignOut from './SignOut.js';
 
 // ReactDOM.render(
     
@@ -17,7 +17,12 @@ class Locations extends React.Component {
     render () {
         return (
             <div>
-                Testing locations
+                <div>
+                    Testing locations
+                </div>
+                <div>
+                    <SignOut auth = {this.props.auth}></SignOut>
+                </div>
             </div>
         )
     }

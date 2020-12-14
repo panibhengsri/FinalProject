@@ -3,7 +3,7 @@ import './App.css';
 import Login from './components/login.js'
 import SignOut from './components/SignOut.js'
 import Result from './components/result.js'
-import routes from './components/routes.js';
+import Locations from './components/locations.js';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -51,7 +51,13 @@ function App() {
 
       <Router>
         <Switch>
+          <Route path = "/locations">
+            <Locations auth = {auth}>
+            </Locations>
+          </Route>
           <Route path = "/result">
+            <Result>
+            </Result>
           </Route>
           <Route path="/">
             {/* Cannot use below routing because it links to results from login without checking user database */}
