@@ -19,6 +19,26 @@ export class Result extends React.Component{
         this.setState({details: true});
     }
 
+    componentDidMount(){
+        fetch('https://final-project-comp20.herokuapp.com/api/rate/country/')
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        items: result.items
+                    });
+                },
+
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    })
+                }
+            )
+    }
+
     render(){
         return(
             <div>
