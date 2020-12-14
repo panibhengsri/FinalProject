@@ -107,7 +107,7 @@ class Login extends React.Component{
                     ref="username" 
                     placeholder="username"
                     onChange={this.handleChange}
-                    value={this.state.username}
+                    // value={this.state.username}
                     required
                 /><br/>
                 <input 
@@ -115,7 +115,7 @@ class Login extends React.Component{
                     ref="password" 
                     placeholder="password"
                     onChange={this.handleChange}
-                    value={this.state.password}
+                    // value={this.state.password}
                     required
                 /><br/>
                 <input type="submit" value="login"/>
