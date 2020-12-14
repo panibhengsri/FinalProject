@@ -17,6 +17,7 @@ class SignOut extends React.Component {
         super(props);
         console.log(this.props)
     }
+    
     render() {
         return this.props.auth.currentUser && (
             <Link to = "/" className = {style.button} onClick={() => this.props.auth.signOut()}>Sign Out</Link> 
