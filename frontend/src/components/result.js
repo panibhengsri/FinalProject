@@ -25,14 +25,16 @@ export class Result extends React.Component{
             .then(
                 (result) => {
                     this.setState({
-                        isLoaded: true,
-                        items: result.items
+                        goout: true,
+                        uv: result.uv,
+                        temp: result.temp,
+                        covid: result.covid
                     });
                 },
 
                 (error) => {
                     this.setState({
-                        isLoaded: true,
+                        goout: true,
                         error
                     })
                 }
