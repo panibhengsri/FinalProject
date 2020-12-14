@@ -10,35 +10,35 @@ export class Result extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            details: false
+            learningMore: false
         };
-        this.learnMore = this.learnMore.bind(this);
+        this.handleLearnMore = this.handleLearnMore.bind(this);
     }
 
-    learnMore() {
-        this.setState({details: true});
+    handleLearnMore() {
+        this.setState({learningMore: true});
     }
 
     componentDidMount(){
         fetch('https://final-project-comp20.herokuapp.com/api/rate/country/')
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        goout: true,
-                        uv: result.uv,
-                        temp: result.temp,
-                        covid: result.covid
-                    });
-                },
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    goout: true,
+                    uv: result.uv,
+                    temp: result.temp,
+                    covid: result.covid
+                });
+            },
 
-                (error) => {
-                    this.setState({
-                        goout: true,
-                        error
-                    })
-                }
-            )
+            (error) => {
+                this.setState({
+                    goout: true,
+                    error
+                })
+            }
+        )
     }
 
     render(){
@@ -50,12 +50,75 @@ export class Result extends React.Component{
                     <p style={{marginTop: '28px'}}>You should leave the house today!</p>
                      {/* the score out of ten */}
                      {/* statement that says whether user should leave the house */}
-                     <button onClick={this.learnMore}>see why</button>
+                     <button onClick={this.handleLearnMore}>see why</button>
                      </div>
                  </div>
+            </div>
+        )
         
-                <div class="detailedResult">
+        const learningMore = this.state.learningMore;
+        let details;
+        if (learningMore){
+            details = 
+            <div class="detailedResult">
+                <div class="individualResult">
+                        <p style= {{marginRight: '20px'}}>UV INDEX</p>
+                        <ProgressBar completed={90}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>9.0</p>
+                    </div>
                     <div class="individualResult">
+                        <p style= {{marginRight: '20px'}}>TIME</p>
+                        <ProgressBar completed={50}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>5.0</p>
+                    </div>
+                    <div class="individualResult">
+                        <p style= {{marginRight: '20px'}}>TEMP</p>
+                        <ProgressBar completed={80}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>8.0</p>
+                    </div>
+                    <div class="individualResult">
+                        <p style= {{marginRight: '20px'}}>COVID-19</p>
+                        <ProgressBar completed={100}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>10.0</p>
+                    </div>
+                </div>;
+    } else {
+        details = <p></p>;
+    }
+        //         <div class="detailedResult">
+        //             <div class="individualResult">
+        //                 <p style= {{marginRight: '20px'}}>UV INDEX</p>
+        //                 <ProgressBar completed={90}/>
+        //                 <p style={{marginLeft: '20px', width: '30px'}}>9.0</p>
+        //             </div>
+        //             <div class="individualResult">
+        //                 <p style= {{marginRight: '20px'}}>TIME</p>
+        //                 <ProgressBar completed={50}/>
+        //                 <p style={{marginLeft: '20px', width: '30px'}}>5.0</p>
+        //             </div>
+        //             <div class="individualResult">
+        //                 <p style= {{marginRight: '20px'}}>TEMP</p>
+        //                 <ProgressBar completed={80}/>
+        //                 <p style={{marginLeft: '20px', width: '30px'}}>8.0</p>
+        //             </div>
+        //             <div class="individualResult">
+        //                 <p style= {{marginRight: '20px'}}>COVID-19</p>
+        //                 <ProgressBar completed={100}/>
+        //                 <p style={{marginLeft: '20px', width: '30px'}}>10.0</p>
+        //             </div>
+        //         </div>
+        //         </div>
+        // )
+    }
+
+}
+
+function learnMore(props){
+    const learningMore = props.learningMore;
+    if(learningMore){
+        return
+            <div class="detailedResult">
+                <div class="individualResult">
                         <p style= {{marginRight: '20px'}}>UV INDEX</p>
                         <ProgressBar completed={90}/>
                         <p style={{marginLeft: '20px', width: '30px'}}>9.0</p>
@@ -76,10 +139,7 @@ export class Result extends React.Component{
                         <p style={{marginLeft: '20px', width: '30px'}}>10.0</p>
                     </div>
                 </div>
-                </div>
-                )
-            }
-
+    }
 
 }
 
