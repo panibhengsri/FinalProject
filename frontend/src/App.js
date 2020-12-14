@@ -54,8 +54,6 @@ function App() {
           <Route path = "/result">
           </Route>
           <Route path="/">
-            <h1>Our REACT APP</h1>
-            {/* <img src={logo} alt="Logo"/> */}
             {/* Cannot use below routing because it links to results from login without checking user database */}
             {/* <Link to="/result">
               See your results
