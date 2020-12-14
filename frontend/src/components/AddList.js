@@ -26,6 +26,8 @@ class AddList extends React.Component {
         // const container = document.querySelector('ul.locay');
 
         this.sendMessage = this.sendMessage.bind(this);
+        this.addCollec = this.addCollec.bind(this);
+        this.setLoccArr = this.setLoccArr.bind(this);
         this.getLocationsArray = this.getLocationsArray.bind(this);
         this.setState = ((state) => ({
             locc: this.state.me.doc('locations')
@@ -47,20 +49,59 @@ class AddList extends React.Component {
         })
     }
 
+    setLoccArr = () => {
+        const me = this.props.firestore.collection(this.props.auth.currentUser.uid);
+
+        const locc = me.doc('locations');
+        var locArr = [];
+
+        locc.onSnapshot(docSnapshot => {
+            this.setState = {
+                locArr: docSnapshot.data().locations
+            }
+
+        });
+    }
+
+    // this is a placeholder after dropdownlist is finished. Basically updates the location to firebase
     sendMessage = () => {
         
-        const placeholder = "comp20";
-
+        const placeholder = "ehh";
+        const me = this.props.firestore.collection(this.props.auth.currentUser.uid);
+        const locc = me.doc('locations');
         // adds new location to array
-        this.state.locc.update({
+        locc.update({
             locations: firebase.firestore.FieldValue.arrayUnion(placeholder)
         });
 
         // setFormValue('');
     }
 
+    // this checks if the user is new. If it's new, add a new collection to firestore for this user
+    addCollec = () => {
+
+        const check = this.props.firestore.collection(this.props.auth.currentUser.uid).doc("locations");
+        check.get().then(docTemp => {
+            if (!docTemp.exists) {
+                // create a collection 
+                this.props.firestore.collection(this.props.auth.currentUser.uid).doc("locations").set({
+                    locations: [""]
+                });
+
+            } 
+        }); 
+
+    }
+
+
+
     render = () => {
-        console.log(this.state.loccArr);
+
+        this.setLoccArr();
+        this.addCollec();
+        this.sendMessage();
+        this.setLoccArr();
+
         return (<>
             <main>
                 <div>
