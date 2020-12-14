@@ -12,8 +12,13 @@ export class Result extends React.Component{
         this.state={
             error: null,
             learningMore: false,
-            goout: null,
-            locations: []
+            isLoaded: false,
+            items: {
+                "uv": null,
+                "temp": null,
+                "covid": null,
+                "goout": false
+            }
         };
         this.handleLearnMore = this.handleLearnMore.bind(this);
     }
@@ -23,30 +28,34 @@ export class Result extends React.Component{
     }
 
     componentDidMount(){
-        fetch('https://final-project-comp20.herokuapp.com/api/rate/country/?location=S.%20Korea')
+        var url = 'https://final-project-comp20.herokuapp.com/api/rate/country/?location=S.%20Korea';
+        fetch(url)
         .then(res => res.json())
-        .then(
-            (result) => {
+        .then(result => {
                 this.setState({
-                    goout: true,
-                    locations: result.locations
+                    isLoaded: true,
+                    items: result
                     // uv: result.uv,
                     // temp: result.temp,
                     // covid: result.covid
                 });
             },
-
             (error) => {
                 this.setState({
-                    goout: true,
+                    isLoaded: true,
                     error
-                })
+                });
             }
         )
     }
 
     render(){
         const learningMore = this.state.learningMore;
+        const {error, isLoaded, items} = this.state;
+        let score = '3/5';
+        // if goout is true, print "You should go out today!", if goout is false, print
+        // "Maybe you should stay in today..."
+        let message = 'You should go out today!';
         let details;
 
         if (learningMore){
@@ -80,17 +89,21 @@ export class Result extends React.Component{
         return(
             <div>
                  <div class="simpleResult">
-                    <h2>4/5</h2>
+                    <h2>{score}</h2>
                     <div>
-                    <p style={{marginTop: '28px'}}>You should leave the house today!</p>
+                    <p style={{marginTop: '28px'}}>{message}</p>
                      {/* the score out of ten */}
                      {/* statement that says whether user should leave the house */}
                      <button onClick={this.handleLearnMore}>see why</button>
+                     <p></p>
                      </div>
                  </div>
                  {details}
+                 {/* {this.state.items.map(item => (
+                     <div key={item.uv}>{item.uv} {item.temp}</div>
+                 ))} */}
             </div>
-        )
+        );
     }
 }
 
