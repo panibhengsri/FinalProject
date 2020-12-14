@@ -21,7 +21,7 @@ class AddList extends React.Component {
             locc: null,
             locArr: [1,2,3,4]
         }
-
+        console.log("addlist is made");
         
         this.sendMessage = this.sendMessage.bind(this);
         this.addCollec = this.addCollec.bind(this);
