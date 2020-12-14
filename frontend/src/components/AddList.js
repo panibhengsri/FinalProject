@@ -22,11 +22,12 @@ class AddList extends React.Component {
             locArr: [1,2,3,4]
         }
 
-  
+        
         this.sendMessage = this.sendMessage.bind(this);
         this.addCollec = this.addCollec.bind(this);
         this.setLoccArr = this.setLoccArr.bind(this);
         
+        this.setLoccArr();
     }
 
 
@@ -80,7 +81,7 @@ class AddList extends React.Component {
         // this.setLoccArr();
         this.addCollec();
         this.sendMessage();
-        this.setLoccArr();
+        // this.setLoccArr();
 
         if (this.state.locArr[0] == 1) {
             return (
