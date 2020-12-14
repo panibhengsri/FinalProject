@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import './App.css';
-import Login from './components/Login.js'
+import Login from './components/login.js'
 import SignOut from './components/SignOut.js'
 import Result from './components/result.js'
 import routes from './components/routes.js';
