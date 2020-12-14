@@ -7,12 +7,12 @@ const router = express.Router();
 
 const covidApi = require('./API/covidApi.js');
 const weatherApi = require('./API/weatherApi.js');
-
+const utils = require('./utils.js');
+const test = require('./utilsTest.js');
 /*
 * USAGE: {baseurl}/api/states
 * */
 router.get('/states', async (req, res) => {
-
     covidApi.getAllStatesCovid( (states) => {
         if (states != undefined) {
             res.status(200);
@@ -40,13 +40,12 @@ router.get('/states', async (req, res) => {
 * USAGE: {baseurl}/api/countries
 * */
 router.get('/countries', async (req, res) => {
-
-    covidApi.getAllCountriesCovid((states) => {
-        if (states != undefined) {
+    test.getPassingCountries((countries) => {
+        if (countries.length > 0) {
             res.status(200);
 
             let response = {
-                places: states
+                places: countries
             }
 
             res.send(response);
@@ -60,10 +59,40 @@ router.get('/countries', async (req, res) => {
 
             res.send(response);
         }
+    })
 
+})
+
+router.get('/rate/state', async (req, res) => {
+    let location = req.query.location;
+    console.log("location: ", location);
+
+    covidApi.getStateCovidInfo(location, function (covidResponse) {
+        console.log(covidResponse)
+        // Get capital city from state
+        let capital = utils.statesCityMap[location];
+        console.log("capital: ", capital);
+        weatherApi.getCityWeather(capital, function (weatherResponse) {
+            let ratings = utils.rateForState(covidResponse, weatherResponse);
+            res.json(ratings);
+        })
     })
 })
 
+router.get('/rate/country', async (req, res) => {
+    let location = req.query.location;
+    console.log("location: ", location);
 
+    covidApi.getCountryCovidInfo(location, function (covidResponse){
+        let capital = utils.countriesCityMap[location];
+        console.log("capital: ", capital);
+        weatherApi.getCityWeather(capital, function (weatherResponse) {
+            let ratings = utils.rateForCountry(covidResponse, weatherResponse);
+            res.json(ratings);
+        })
+    })
+    
+
+})
 
 module.exports = router;

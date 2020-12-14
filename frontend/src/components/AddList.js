@@ -1,3 +1,7 @@
+/*  Locations list 
+    Created on 10/12/2020 by Duncan Chang, Jeremy Jung
+*/
+
 import React from 'react';
 
 import firebase from 'firebase/app';
@@ -20,14 +24,29 @@ class AddList extends React.Component {
 
         // const myID = this.props.auth.currentUser.uid;
         // const container = document.querySelector('ul.locay');
-        
-        this.setState = ( (state) => ({
-            locc : this.state.me.doc('locations')
-        }));
 
         this.sendMessage = this.sendMessage.bind(this);
         this.addCollec = this.addCollec.bind(this);
         this.setLoccArr = this.setLoccArr.bind(this);
+        this.getLocationsArray = this.getLocationsArray.bind(this);
+        this.setState = ((state) => ({
+            locc: this.state.me.doc('locations')
+        }));
+        this.getLocationsArray();
+    }
+
+    getLocationsArray() {
+        let newLocc = this.state.me.doc('locations');
+        
+        console.log(newLocc);
+
+        console.log(this.state.locc);
+
+        this.state.me.doc('locations').onSnapshot(docSnapshot => {
+            this.setState = ((state) => ({
+                loccArr: docSnapshot.data().locations
+            }));
+        })
     }
 
     setLoccArr = () => {

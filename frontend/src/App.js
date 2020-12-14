@@ -1,8 +1,9 @@
-
 import React, { useRef, useState } from 'react';
 import './App.css';
-import Login from './components/login.js'
-// import routes from './components/routes.js';
+import Login from './components/Login.js'
+import SignOut from './components/SignOut.js'
+import Result from './components/result.js'
+import routes from './components/routes.js';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -11,6 +12,14 @@ import 'firebase/analytics';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 
 var config = {
     apiKey: "AIzaSyBozbLN9F8w_LCmJEvPsCIx82h7Hd0NtrY",
@@ -37,29 +46,26 @@ function App() {
 
   return (
     <div className="App">
-        <header>
-          <h1>Our REACT APP</h1>
-
-          <ul className="locay" ref={locayRef} id="locay"></ul>
-          <SignOut />
-        </header>
-        <Login auth = {auth} firestore = {firestore} user = {user}></Login>
-      {/* <section> */}
-        {/* {user ? <AddList /> : <SignIn />} */}
-        {/*  */}
-      {/* </section> */}
-
+      <Router>
+        <Switch>
+          <Route path = "/result">
+            <Result></Result>
+          </Route>
+          <Route path="/">
+            <h1>Our REACT APP</h1>
+            {/* Cannot use below routing because it links to results from login without checking user database */}
+            {/* <Link to="/result">
+              See your results
+              </Link> */}
+            <SignOut auth = {auth} />
+            <Login auth={auth} firestore={firestore} user={user}></Login>
+            <ul className="locay" ref={locayRef} id="locay"></ul>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
-
-
-function SignOut() {
-  return auth.currentUser && (
-    <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
-  )
-}
-
 
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;

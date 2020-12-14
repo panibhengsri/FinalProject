@@ -1,3 +1,7 @@
+/*  Login contains <SignIn> "button"
+    Edited on 10/12/2020 by Duncan Chang, Jeremy Jung
+*/
+
 import React from 'react';
 
 import firebase from 'firebase/app';
@@ -11,11 +15,6 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 // import GoogleLogin from 'react-google-login';    // COMMENTED BY JEREMY JUNG
 import SignIn from './SignIn.js';
 import AddList from './AddList.js';
-
-
-import {
-    BrowserRouter as Router, Route
-} from "react-router-dom";
 
 class Login extends React.Component{
     constructor(props){
@@ -102,7 +101,6 @@ class Login extends React.Component{
 		<div className="container">
             <form onSubmit={this.handleSubmit}>
                 {this.props.children}
-                <h2>Sign In</h2>
                 <p>If you don't have an account, please sign-in using Google!</p>
                 <input 
                     type="text" 
@@ -134,7 +132,7 @@ class Login extends React.Component{
                     onFailure = {this.responseGoogle}
                     cookiePolicy = {'single_host_origin'}
                 /> */}
-					</div>
+        </div>
         )
     }
 }
