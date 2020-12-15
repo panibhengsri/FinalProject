@@ -46,6 +46,8 @@ router.get('/countries', async (req, res) => {
             countries.push(shiftedElt);
         }
 
+        // console.log(countries);
+
         if (countries.length > 0) {
             res.status(200);
 

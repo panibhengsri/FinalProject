@@ -147,7 +147,7 @@ class AddList extends React.Component {
         
         // this.setLoccArr();
         this.addCollec();
-        this.sendMessage();
+        // this.sendMessage();
         // this.setLoccArr();
 
         console.log("array is initialized")

@@ -28,26 +28,28 @@ const testCovidCountriesToCountriesCityMap = () => {
 }
 
 const getPassingCountries = (callback) => {
+    
     // get Country to Capital mapping
-    let countriesCityMap = utils.countriesCityMap;
-    // get Countries list from COVID databse
-    covidApi.getAllCountriesCovid((countries) => {
-        
-        let passingCountries = [];
+    utils.getCountriesCityMap( function(countriesCityMap) {
+        // get Countries list from COVID databse
+        covidApi.getAllCountriesCovid((countries) => {
 
-        for (let index in countries) {
-            let name = countries[index];
-            // check if country is in both countriescitiesmap and covid database
-            if (countriesCityMap[name] != undefined) {
-                // check if capital of country is defined
-                if (countriesCityMap[name].city != null) {
-                    passingCountries.push(name);
+            let passingCountries = [];
+
+            for (let index in countries) {
+                let name = countries[index];
+                // check if country is in both countriescitiesmap and covid database
+                if (countriesCityMap[name] != undefined) {
+                    // check if capital of country is defined
+                    if (countriesCityMap[name] != null) {
+                        passingCountries.push(name);
+                    }
                 }
             }
-        }
-
-        callback(passingCountries);
+            callback(passingCountries);
+        })
     })
+
 }
 
 const testTemperature = () => {
@@ -80,8 +82,9 @@ const testCovidState = () => {
     for (let testPositiveIncrease = 0; testPositiveIncrease <= 1000; testPositiveIncrease += 10) {
         for (let testNegativeIncrease = 0; testNegativeIncrease <= 2000; testNegativeIncrease += 10) {
             let result = utils.rateCovidState(testPositiveIncrease, testNegativeIncrease);
-            if (result > 0)
+            if (result > 0) {
                 console.log("test + increase: " + testPositiveIncrease, "test - increase: " + testNegativeIncrease, "...... rating: " + result);
+            }
         }
     }
 }
@@ -96,6 +99,5 @@ const runTests = () => {
     testCovidCountriesToCountriesCityMap();
 }
 
-runTests();
 
 module.exports.getPassingCountries = getPassingCountries;

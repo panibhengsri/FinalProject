@@ -1040,11 +1040,13 @@ var countriesCityArray = [
         "city": "Harare"
     }
 ];
-
-var countriesCityMap = {};
-for (let index in countriesCityArray) {
-    let countryName = countriesCityArray[index].country;
-    countriesCityMap[countryName] = countriesCityArray[index].city;
+const getCountriesCityMap = (callback) => {
+    var countriesCityMap = {};
+    for (let index in countriesCityArray) {
+        let countryName = countriesCityArray[index].country;
+        countriesCityMap[countryName] = countriesCityArray[index].city;
+    }
+    callback(countriesCityMap);
 }
 
 const rateForState = (covidResponse, weatherResponse) => {
@@ -1144,7 +1146,7 @@ const rateUv = (uvIndex) => {
 
 
 module.exports.statesCityMap = statesCityMap;
-module.exports.countriesCityMap = countriesCityMap;
+module.exports.getCountriesCityMap = getCountriesCityMap;
 module.exports.rateForState = rateForState;
 module.exports.rateForCountry = rateForCountry;
 module.exports.rateTemperature = rateTemperature;
