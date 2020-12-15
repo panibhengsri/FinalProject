@@ -21,44 +21,25 @@ class AddList extends React.Component {
             locc: null,
             locArr: [1,2,3,4]
         }
-
-        // const myID = this.props.auth.currentUser.uid;
-        // const container = document.querySelector('ul.locay');
-
+        console.log("addlist is made");
+        
         this.sendMessage = this.sendMessage.bind(this);
         this.addCollec = this.addCollec.bind(this);
         this.setLoccArr = this.setLoccArr.bind(this);
-        this.getLocationsArray = this.getLocationsArray.bind(this);
-        this.setState = ((state) => ({
-            locc: this.state.me.doc('locations')
-        }));
-        this.getLocationsArray();
-    }
-
-    getLocationsArray() {
-        let newLocc = this.state.me.doc('locations');
         
-        console.log(newLocc);
-
-        console.log(this.state.locc);
-
-        this.state.me.doc('locations').onSnapshot(docSnapshot => {
-            this.setState = ((state) => ({
-                loccArr: docSnapshot.data().locations
-            }));
-        })
+        this.setLoccArr();
     }
+
 
     setLoccArr = () => {
         const me = this.props.firestore.collection(this.props.auth.currentUser.uid);
 
         const locc = me.doc('locations');
-        var locArr = [];
 
         locc.onSnapshot(docSnapshot => {
-            this.setState = {
+            this.setState({
                 locArr: docSnapshot.data().locations
-            }
+            });
 
         });
     }
@@ -96,31 +77,42 @@ class AddList extends React.Component {
 
 
     render = () => {
-
-        this.setLoccArr();
+        
+        // this.setLoccArr();
         this.addCollec();
         this.sendMessage();
-        this.setLoccArr();
+        // this.setLoccArr();
 
-        return (<>
-            <main>
-                <div>
-                    {this.state.locArr.map((element) => {
-                        return <div> {element} </div>
-                    })}
-                </div>
+        if (this.state.locArr[0] == 1) {
+            return (
+                <main>
+                    <div>
+                        Add location with the dropdown list above!
+                    </div>
+                </main>
+            );
+        }
+        else {
+            console.log("array is initialized")
+            return (<>
+                <main>
+                    <div>
+                        {this.state.locArr.map((element) => {
+                            return <div> {element} </div>
+                        })}
+                    </div>    
+                </main>
+                {/* COMMENTED OUT PLACEHOLDER FOR PANI'S {ADD LOCATION BUTTON (or SUBMIT)} */}
+                {/* <form onSubmit={sendMessage}> */}
+                {/*  */}
+                {/* <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" /> */}
+                {/*  */}
+                {/* <button type="submit" disabled={!formValue}>🕊️</button> */}
+                {/*  */}
+                {/* </form> */}
+            </>)
+        }
 
-
-            </main>
-            {/* COMMENTED OUT PLACEHOLDER FOR PANI'S {ADD LOCATION BUTTON (or SUBMIT)} */}
-            {/* <form onSubmit={sendMessage}> */}
-            {/*  */}
-            {/* <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" /> */}
-            {/*  */}
-            {/* <button type="submit" disabled={!formValue}>🕊️</button> */}
-            {/*  */}
-            {/* </form> */}
-        </>)
     }
 }
 
