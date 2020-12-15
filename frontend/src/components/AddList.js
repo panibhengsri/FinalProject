@@ -90,11 +90,9 @@ class AddList extends React.Component {
             locationSelected: location,
             worldOption: worldOption
         }));
-        const res = location + " , "  + worldOption;
+        const res = location + ","  + worldOption;
         this.sendMessage(res);
         
-        console.log("location retrievd in addlist: ", location);
-        console.log("worldOption retrieved in addlist: ", worldOption);
     }
 
     /* (END)*/
