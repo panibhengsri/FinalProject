@@ -57,7 +57,7 @@ export class Result extends React.Component{
         // "Maybe you should stay in today..."
         let message = 'You should go out today!';
         let details;
-        let querystring = this.props.match.params.id.substring(1);
+        let querystring = this.props.match.params.id.substring(0);
         let placindexComma = querystring.indexOf(",");
         let place = querystring.substring(0,placindexComma);
         let worldOption = querystring.substring(placindexComma+1);
