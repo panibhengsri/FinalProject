@@ -54,10 +54,10 @@ function App() {
         <Router>
           <Switch>
             
-            <Route path = "/result/:searchLoc" component={Result}>
+            <Route path = "/result/:id" render={ (props) => <Result {...props}/> } >
               
-              <Result>
-              </Result>
+              {/* <Result>
+              </Result> */}
             </Route>
             <Route path = "/locations">
               <Locations auth={auth} firestore={firestore} user={user}></Locations>

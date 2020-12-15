@@ -33,6 +33,7 @@ class AddList extends React.Component {
             worldOption: null,
             apiResultsCountries: false,
             apiResultsStates: false
+            
         }
         console.log("addlist is made");
         
@@ -89,6 +90,8 @@ class AddList extends React.Component {
             locationSelected: location,
             worldOption: worldOption
         }));
+        const res = location + " , "  + worldOption;
+        this.sendMessage(res);
         
         console.log("location retrievd in addlist: ", location);
         console.log("worldOption retrieved in addlist: ", worldOption);
@@ -111,9 +114,9 @@ class AddList extends React.Component {
     }
 
     // this is a placeholder after dropdownlist is finished. Basically updates the location to firebase
-    sendMessage = () => {
+    sendMessage = (place) => {
         
-        const placeholder = "ehh";
+        const placeholder = "" + place;
         const me = this.props.firestore.collection(this.props.auth.currentUser.uid);
         const locc = me.doc('locations');
         // adds new location to array
@@ -171,7 +174,7 @@ class AddList extends React.Component {
                     </div>
                     <div>
                         {this.state.locArr.map((element) => {
-                            return <div> <Link to = {"/result/:" + element}className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
+                            return <div> <Link to = {"/result/" + element} className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
                         })}
                     </div>    
                 </main>
