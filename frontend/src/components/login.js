@@ -22,10 +22,16 @@ class Login extends React.Component{
     render(){
         return(
 		<div className="container">
-            <img style={{width: '300px'}} src={Logo} alt="Logo"/>
-            <section>
-                {this.props.user ? <AddList firestore={this.props.firestore} auth = {this.props.auth} /> : <SignIn firestore = {this.props.firestore} auth = {this.props.auth}/>}
-            </section>
+            <div>
+                <img style={{width: '300px'}} src={Logo} alt="Logo"/>
+            </div>
+            <div>
+                <section>
+                    {this.props.user ? <AddList firestore={this.props.firestore} auth = {this.props.auth} /> : <SignIn firestore = {this.props.firestore} auth = {this.props.auth}/>}
+                </section>
+            </div>
+            
+            
         {/* COMMENTED GOOGLE LOGIN (JEREMY JUNG) */}
         </div>
         )
