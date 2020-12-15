@@ -7,28 +7,30 @@ const weatherApi = require('./API/weatherApi.js');
 const covidApi = require('./API/covidApi.js');
 
 const testWeatherCountriesCityMap = () => {
-    let countriesCityMap = utils.countriesCityMap;
-    for (let key in countriesCityMap) {
-        let city = countriesCityMap[key];
-        weatherApi.getCityWeather(city, function(response) {
-        })
-    }
-}
-
-const testCovidCountriesToCountriesCityMap = () => {
-    let countriesCityMap = utils.countriesCityMap;
-    covidApi.getAllCountriesCovid((countries) => {
-        for (let index in countries) {
-            let name = countries[index];
-            if (countriesCityMap[name] == undefined) {
-                console.log("matching country name was not found for country in COVID base: ", name);
-            }
+    utils.getCountriesCityMap(function (countriesCityMap) {
+        for (let key in countriesCityMap) {
+            let city = countriesCityMap[key];
+            weatherApi.getCityWeather(city, function(response) {
+            })
         }
     })
 }
 
+const testCovidCountriesToCountriesCityMap = () => {
+    utils.getCountriesCityMap(function (countriesCityMap) {
+        covidApi.getAllCountriesCovid((countries) => {
+            for (let index in countries) {
+                let name = countries[index];
+                if (countriesCityMap[name] == undefined) {
+                    console.log("matching country name was not found for country in COVID base: ", name);
+                }
+            }
+        })  
+    })
+}
+
 const getPassingCountries = (callback) => {
-    
+
     // get Country to Capital mapping
     utils.getCountriesCityMap( function(countriesCityMap) {
         // get Countries list from COVID databse
