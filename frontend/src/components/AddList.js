@@ -12,6 +12,13 @@ import 'firebase/analytics';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
 class AddList extends React.Component {
     constructor(props) {
         super(props);
@@ -31,6 +38,8 @@ class AddList extends React.Component {
         this.getCountries = this.getCountries.bind(this);
         this.getStates = this.getStates.bind(this);
 
+        this.sendToRes = this.sendToRes.bind(this);
+        
         this.setLoccArr();
         this.getCountries();
         this.getStates();
@@ -112,7 +121,10 @@ class AddList extends React.Component {
 
     }
 
+    sendToRes = (element) => {
+        
 
+    }
 
     render = () => {
         
@@ -136,7 +148,7 @@ class AddList extends React.Component {
                 <main>
                     <div>
                         {this.state.locArr.map((element) => {
-                            return <div> {element} </div>
+                            return <div> <Link to = "/result" className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
                         })}
                     </div>    
                 </main>

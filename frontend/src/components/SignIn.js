@@ -32,15 +32,6 @@ class SignIn extends React.Component {
         this.props.auth.signInWithPopup(provider);
             
 
-        // const check = this.props.firestore.collection("users").doc(this.props.auth.currentUser.uid);
-        // check.get().then(docTemp => {
-        //         if (!docTemp.exists) {
-        //             // create a collection 
-     
-                    
-        
-        //         } 
-        // }); 
     }
     
   
