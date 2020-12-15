@@ -50,14 +50,13 @@ function App() {
     console.log("props.auth.currentuser is null");
     return (
       <div className="App">
-        
-        <Router>
+       <Router>
           <Switch>
             
-            <Route path = "/result">
+            <Route path = "/result/:id" render={ (props) => <Result {...props}/> } >
               
-              <Result>
-              </Result>
+              {/* <Result>
+              </Result> */}
             </Route>
             <Route path = "/locations">
               <Locations auth={auth} firestore={firestore} user={user}></Locations>
