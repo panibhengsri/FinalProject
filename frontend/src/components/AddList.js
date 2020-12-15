@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-
+import DropdownPlaces from './DropdownPlaces.js';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -12,6 +12,13 @@ import 'firebase/analytics';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
 class AddList extends React.Component {
     constructor(props) {
         super(props);
@@ -19,16 +26,76 @@ class AddList extends React.Component {
         this.state = {
             me: this.props.firestore.collection(this.props.auth.currentUser.uid),
             locc: null,
-            locArr: [1,2,3,4]
+            locArr: [1,2,3,4],
+            countries: null,
+            states: null,
+            locationSelected: null,
+            worldOption: null,
+            apiResultsCountries: false,
+            apiResultsStates: false
+            
         }
         console.log("addlist is made");
         
         this.sendMessage = this.sendMessage.bind(this);
+        this.onLocationSubmit = this.onLocationSubmit.bind(this);
         this.addCollec = this.addCollec.bind(this);
         this.setLoccArr = this.setLoccArr.bind(this);
+        this.getCountries = this.getCountries.bind(this);
+        this.getStates = this.getStates.bind(this);
+        this.sendToRes = this.sendToRes.bind(this);
         
         this.setLoccArr();
+        this.getCountries();
+        this.getStates();
     }
+    /* UTILS FOR LOCATIONS DROP DOWN LIST*/
+
+    // Get the list of countries
+    getCountries = () => {
+        var API_URL = "https://final-project-comp20.herokuapp.com/api/countries";
+        fetch(API_URL)
+            .then(
+                (response) => response.json()
+            )
+            .then(result => {
+                this.setState({ countries: result.places });
+                this.setState({ apiResultsCountries: true });
+                console.log(result.places);
+            },
+                (err) => {
+                    console.log("Error in getCountries: ", err);
+                })
+    }
+
+    // Get the list of States
+    getStates = () => {
+        var API_URL = "https://final-project-comp20.herokuapp.com/api/states";
+        fetch(API_URL)
+            .then(
+                (response) => response.json()
+            )
+            .then(result => {
+                this.setState({ states: result.places });
+                this.setState({ apiResultsStates: true });
+                console.log(result.places);
+            },
+                (err) => {
+                    console.log("Error in getCountries: ", err);
+                })
+    }
+
+    onLocationSubmit = (location, worldOption) => {
+        this.setState((prev) => ({
+            locationSelected: location,
+            worldOption: worldOption
+        }));
+        const res = location + ","  + worldOption;
+        this.sendMessage(res);
+        
+    }
+
+    /* (END)*/
 
 
     setLoccArr = () => {
@@ -45,9 +112,9 @@ class AddList extends React.Component {
     }
 
     // this is a placeholder after dropdownlist is finished. Basically updates the location to firebase
-    sendMessage = () => {
+    sendMessage = (place) => {
         
-        const placeholder = "ehh";
+        const placeholder = "" + place;
         const me = this.props.firestore.collection(this.props.auth.currentUser.uid);
         const locc = me.doc('locations');
         // adds new location to array
@@ -74,7 +141,10 @@ class AddList extends React.Component {
 
     }
 
+    sendToRes = (element) => {
+        
 
+    }
 
     render = () => {
         
@@ -83,6 +153,7 @@ class AddList extends React.Component {
         this.sendMessage();
         // this.setLoccArr();
 
+        console.log("array is initialized")
         if (this.state.locArr[0] == 1) {
             return (
                 <main>
@@ -97,8 +168,11 @@ class AddList extends React.Component {
             return (<>
                 <main>
                     <div>
+                        <DropdownPlaces countries = {this.state.countries} states = {this.state.states} onLocationSubmit = {this.onLocationSubmit}></DropdownPlaces>
+                    </div>
+                    <div>
                         {this.state.locArr.map((element) => {
-                            return <div> {element} </div>
+                            return <div> <Link to = {"/result/" + element} className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
                         })}
                     </div>    
                 </main>
