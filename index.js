@@ -41,6 +41,11 @@ router.get('/states', async (req, res) => {
 * */
 router.get('/countries', async (req, res) => {
     test.getPassingCountries((countries) => {
+        if( countries[0] == "USA") {
+            let shiftedElt = countries.shift();
+            countries.push(shiftedElt);
+        }
+
         if (countries.length > 0) {
             res.status(200);
 
