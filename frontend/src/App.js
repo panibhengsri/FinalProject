@@ -54,7 +54,7 @@ function App() {
         <Router>
           <Switch>
             
-            <Route path = "/result">
+            <Route path = "/result/:searchLoc" component={Result}>
               
               <Result>
               </Result>

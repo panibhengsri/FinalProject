@@ -153,26 +153,38 @@ class AddList extends React.Component {
         // this.setLoccArr();
 
         console.log("array is initialized")
-        return (<>
-            <main>
-                <div>
-                    <DropdownPlaces countries = {this.state.countries} states = {this.state.states} onLocationSubmit = {this.onLocationSubmit}></DropdownPlaces>
-                </div>
-                <div>
-                    {this.state.locArr.map((element) => {
-                        return <div> <Link to = "/result" className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
-                    })}
-                </div>    
-            </main>
-            {/* COMMENTED OUT PLACEHOLDER FOR PANI'S {ADD LOCATION BUTTON (or SUBMIT)} */}
-            {/* <form onSubmit={sendMessage}> */}
-            {/*  */}
-            {/* <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" /> */}
-            {/*  */}
-            {/* <button type="submit" disabled={!formValue}>🕊️</button> */}
-            {/*  */}
-            {/* </form> */}
-        </>)
+        if (this.state.locArr[0] == 1) {
+            return (
+                <main>
+                    <div>
+                        Add location with the dropdown list above!
+                    </div>
+                </main>
+            );
+        }
+        else {
+            console.log("array is initialized")
+            return (<>
+                <main>
+                    <div>
+                        <DropdownPlaces countries = {this.state.countries} states = {this.state.states} onLocationSubmit = {this.onLocationSubmit}></DropdownPlaces>
+                    </div>
+                    <div>
+                        {this.state.locArr.map((element) => {
+                            return <div> <Link to = {"/result/:" + element}className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
+                        })}
+                    </div>    
+                </main>
+                {/* COMMENTED OUT PLACEHOLDER FOR PANI'S {ADD LOCATION BUTTON (or SUBMIT)} */}
+                {/* <form onSubmit={sendMessage}> */}
+                {/*  */}
+                {/* <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" /> */}
+                {/*  */}
+                {/* <button type="submit" disabled={!formValue}>🕊️</button> */}
+                {/*  */}
+                {/* </form> */}
+            </>)
+        }
 
     }
 }

@@ -6,6 +6,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import ProgressBar from "./progressBar.js";
 
+
+
 export class Result extends React.Component{
     constructor(props){
         super(props);
@@ -58,6 +60,10 @@ export class Result extends React.Component{
         // "Maybe you should stay in today..."
         let message = 'You should go out today!';
         let details;
+        console.log(this.props.match.params.searchLoc);
+        // const query = new URLSearchParams(this.props.location.search);
+        // console.log("what is props? " + this.props);
+        // console.log(query.get("loc"));
 
         if (learningMore){
             details = 
