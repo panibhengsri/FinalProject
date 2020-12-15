@@ -13,7 +13,7 @@ class SignOut extends React.Component {
     }
     render() {
         return this.props.auth.currentUser && (
-            <button className = {style.button} onClick={() => this.props.auth.signOut()}>Sign Out</button> 
+            <button onClick={() => this.props.auth.signOut()}>Sign Out</button> 
         );
     }
 
