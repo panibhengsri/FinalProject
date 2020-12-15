@@ -45,33 +45,8 @@ function App() {
 
   const [user] = useAuthState(auth);
   const locayRef = useRef();
-  // if (auth.currentUser != null) {
-  //   return (
-  //     <div className="App">
-        
-  //       <Router>
-  //         <Switch>
-            
-  //           <Route path = "/result">
-              
-  //             <Result>
-  //             </Result>
-  //           </Route>
-  //           <Route path = "/locations">
-  //             <Locations auth={auth} firestore={firestore} user={user}></Locations>
-  //           </Route>
-  //           <Route path="/">
-  //             {/* Cannot use below routing because it links to results from login without checking user database */}
-              
-  //             <img style={{width: '300px'}} src={Logo} alt="Logo"/>
-  //             <Locations auth={auth} firestore={firestore} user={user}></Locations>
   
-  //           </Route>
-  //         </Switch>
-  //       </Router>
-  //     </div>
-  //   );
-  // } else {
+
     console.log("props.auth.currentuser is null");
     return (
       <div className="App">
@@ -88,8 +63,6 @@ function App() {
               <Locations auth={auth} firestore={firestore} user={user}></Locations>
             </Route>
             <Route path="/">
-              {/* Cannot use below routing because it links to results from login without checking user database */}
-
               <img style={{width: '300px'}} src={Logo} alt="Logo"/>
               <SignIn auth = {auth}></SignIn>
             </Route>
