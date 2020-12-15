@@ -5,6 +5,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import ProgressBar from "./progressBar.js";
+import FrownyFace from "./frownyFace.png";
 
 export class Result extends React.Component{
     constructor(props){
@@ -40,17 +41,6 @@ export class Result extends React.Component{
                 items: array
             })
             console.log(this.state.items);
-            // console.log(array);
-            //     this.setState({
-            //         isLoaded: false,
-            //         items: data.uv
-            //     });
-            // },
-            // (error) => {
-            //     this.setState({
-            //         isLoaded: false,
-            //         error
-            //     });
             }
         )
     }
@@ -69,6 +59,14 @@ export class Result extends React.Component{
 
     render(){
         const learningMore = this.state.learningMore;
+        let score;
+        console.log(this.state.items[3]);
+        let goOut =  Boolean.parseBoolean(this.state.items[3]['goout']);
+        // if (goOut['goout'] == 'false'){
+        //     score = <img src={FrownyFace} alt="FrownyFace"/>;
+        // } else {
+        //     score = <img src={FrownyFace} alt="FrownyFace"/>;
+        // }
         // let avgScore = (this.state.items[0]['uv'] + this.state.items[1]['temp'] + this.state.items[2]['covid'])/3;
         // let score = avgScore + '/5';
         // if goout is true, print "You should go out today!", if goout is false, print
@@ -81,12 +79,7 @@ export class Result extends React.Component{
         let worldOption = querystring.substring(placindexComma+1);
         // console.log(this.props.match.params.id.substring(1));
         console.log("place: ", place)
-        console.log("worldoption: ", worldOption)
-        // const allScores = Object.entries(items).forEach(entry => {
-        //     const [key, value] = entry;
-        // });    
-        // console.log(allScores);
-        // console.log(allScores)
+        console.log("worldoption: ", worldOption)  
 
         if (learningMore){
             details = 
@@ -114,9 +107,9 @@ export class Result extends React.Component{
         return(
             <div>
                  <div class="simpleResult">
-                    <h2>{score}</h2>
+                    {score}
                     <div>
-                    <p style={{marginTop: '28px'}}>{message}</p>
+                    <p style={{marginTop: '35px'}}>{message}</p>
                      {/* the score out of ten */}
                      {/* statement that says whether user should leave the house */}
                      <button onClick={this.handleLearnMore}>see why</button>
