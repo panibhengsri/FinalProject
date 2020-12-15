@@ -50,8 +50,7 @@ function App() {
     console.log("props.auth.currentuser is null");
     return (
       <div className="App">
-        
-        <Router>
+       <Router>
           <Switch>
             
             <Route path = "/result/:id" render={ (props) => <Result {...props}/> } >

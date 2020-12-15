@@ -1040,11 +1040,13 @@ var countriesCityArray = [
         "city": "Harare"
     }
 ];
-
-var countriesCityMap = {};
-for (let index in countriesCityArray) {
-    let countryName = countriesCityArray[index].country;
-    countriesCityMap[countryName] = countriesCityArray[index].city;
+const getCountriesCityMap = (callback) => {
+    var countriesCityMap = {};
+    for (let index in countriesCityArray) {
+        let countryName = countriesCityArray[index].country;
+        countriesCityMap[countryName] = countriesCityArray[index].city;
+    }
+    callback(countriesCityMap);
 }
 
 const rateForState = (covidResponse, weatherResponse) => {
@@ -1117,7 +1119,8 @@ const rateTemperature = (temperature) => {
 const rateCovidState = (positiveIncrease, negativeIncrease) => {
     let proportions = positiveIncrease / (negativeIncrease + positiveIncrease);
     let covidOutOfFive = 0;
-    if (proportions < 0.2) {
+    // give a rating larger than 0 if the positiveIncrease is at most 50% of total tested cases
+    if (proportions < 0.5) {
         covidOutOfFive = ((1 - proportions) / (1)) * 5;
     }
     return covidOutOfFive.toFixed(2);
@@ -1143,7 +1146,7 @@ const rateUv = (uvIndex) => {
 
 
 module.exports.statesCityMap = statesCityMap;
-module.exports.countriesCityMap = countriesCityMap;
+module.exports.getCountriesCityMap = getCountriesCityMap;
 module.exports.rateForState = rateForState;
 module.exports.rateForCountry = rateForCountry;
 module.exports.rateTemperature = rateTemperature;

@@ -41,6 +41,13 @@ router.get('/states', async (req, res) => {
 * */
 router.get('/countries', async (req, res) => {
     test.getPassingCountries((countries) => {
+        if( countries[0] == "USA") {
+            let shiftedElt = countries.shift();
+            countries.push(shiftedElt);
+        }
+
+        // console.log(countries);
+
         if (countries.length > 0) {
             res.status(200);
 
@@ -84,11 +91,13 @@ router.get('/rate/country', async (req, res) => {
     console.log("location: ", location);
 
     covidApi.getCountryCovidInfo(location, function (covidResponse){
-        let capital = utils.countriesCityMap[location];
-        console.log("capital: ", capital);
-        weatherApi.getCityWeather(capital, function (weatherResponse) {
-            let ratings = utils.rateForCountry(covidResponse, weatherResponse);
-            res.json(ratings);
+        utils.getCountriesCityMap(function (countriesCityMap) {
+            let capital = countriesCityMap[location];
+            console.log("capital: ", capital);
+            weatherApi.getCityWeather(capital, function (weatherResponse) {
+                let ratings = utils.rateForCountry(covidResponse, weatherResponse);
+                res.json(ratings);
+            })
         })
     })
     

@@ -1,5 +1,5 @@
-/*  Login contains <SignIn> "button"
-    Edited on 10/12/2020 by Duncan Chang, Jeremy Jung
+/*  Dropdown list of locations
+    Created on (15/12/2020) by Jeremy Jung
 */
 
 import React from 'react';
@@ -23,23 +23,27 @@ class DropdownPlaces extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
+    /* Handle change of <option> */
     handleChange = (event) => {
+        // update worldOption when "USA" is clicked
         if (event.target.value == "USA")
             this.setState({worldOption: "state"});
         else
             this.setState({worldOption: "country"})
+        
+            // UPDATE STATE: locationSelected
         this.setState({
             locationSelected: event.target.value
         });
     }
 
+    /* Handle change of <option> when worldOption is state */
     handleStatesChange = (event) => {
         this.setState({
             locationSelected: event.target.value
         });
     }
-
+    /* Add selected location to list in AddList.js */
     handleSubmit = () => {
         console.log("worldOption: ", this.state.worldOption);
 
@@ -49,6 +53,7 @@ class DropdownPlaces extends React.Component {
     }
 
     render() {
+        // Loading screen when API responses have not yet been retrieved
         if (this.props.countries == null || this.props.states == null) {
             return (
                 <div>
@@ -56,9 +61,12 @@ class DropdownPlaces extends React.Component {
                 </div>
             );
         }
+        // Render UI
         else {
+            // INIT STATE: set state to first country
             if (this.state.locationSelected == null)
                 this.setState({locationSelected: this.props.countries[0]});
+            
             if (this.state.worldOption == "country") {
                 return (
                     <div>
@@ -72,8 +80,10 @@ class DropdownPlaces extends React.Component {
                 );
             }
             else if (this.state.worldOption == "state") {
+                // INIT STATE: set state to first country
                 if (this.state.locationSelected == "USA")
                     this.setState({ locationSelected: this.props.states[0] });
+                    
                 return (
                     <div>
                         <div>

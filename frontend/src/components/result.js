@@ -5,7 +5,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import ProgressBar from "./progressBar.js";
-
+import FrownyFace from "./frownyFace.png";
 
 export class Result extends React.Component{
     constructor(props){
@@ -13,83 +13,91 @@ export class Result extends React.Component{
         this.state={
             error: null,
             learningMore: false,
-            isLoaded: false,
-            items: {
-                "uv": null,
-                "temp": null,
-                "covid": null,
-                "goout": false
-            },
-            loc: null,
+            isLoaded: true,
+            items: []
         };
         this.handleLearnMore = this.handleLearnMore.bind(this);
     }
 
     handleLearnMore() {
-        this.setState({learningMore: true});
+        this.setState({
+            learningMore: true,
+            items: this.state.items
+        });
     }
 
     componentDidMount(){
-        var url = 'https://final-project-comp20.herokuapp.com/api/rate/country/?location=S.%20Korea';
+        var url = "https://final-project-comp20.herokuapp.com/api/rate/country/?location=S.%20Korea";
         fetch(url)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-            console.log('This is the data', data);
-                this.setState({
-                    isLoaded: true,
-                    items: data
-                    // uv: result.uv,
-                    // temp: result.temp,
-                    // covid: result.covid
-                });
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
+            let array = [];
+            for (let key in data){
+                let newObj = {};
+                newObj[key] = data[key];
+                array.push(newObj);
+            }
+            this.setState({
+                items: array
+            })
+            console.log(this.state.items);
             }
         )
     }
 
-   
+    getLocation = () => {
+        let querystring = this.props.match.params.id.substring(0);
+        let placindexComma = querystring.indexOf(",");
+        let place = querystring.substring(0, placindexComma);
+        let worldOption = querystring.substring(placindexComma + 1);
+
+        let returnObj = {};
+        returnObj["place"] = place;
+        returnObj["worldOption"] = worldOption;
+        return returnObj;
+    }
 
     render(){
         const learningMore = this.state.learningMore;
-        const {error, isLoaded, items} = this.state;
-        let score = '3/5';
+        let score;
+        // console.log(this.state.items[3]);
+        // let goOut =  Boolean.parseBoolean(this.state.items[3]['goout']);
+        // if (goOut['goout'] == 'false'){
+        //     score = <img src={FrownyFace} alt="FrownyFace"/>;
+        // } else {
+        //     score = <img src={FrownyFace} alt="FrownyFace"/>;
+        // }
+        // let avgScore = (this.state.items[0]['uv'] + this.state.items[1]['temp'] + this.state.items[2]['covid'])/3;
+        // let score = avgScore + '/5';
         // if goout is true, print "You should go out today!", if goout is false, print
         // "Maybe you should stay in today..."
         let message = 'You should go out today!';
         let details;
-        console.log("hey you this iekjfbwkjebfw");
-        console.log(this.props.match.params.id.substring(1));
-        // const query = new URLSearchParams(this.props.location.search);
-        // console.log("what is props? " + this.props);
-        // console.log(query.get("loc"));
+        let querystring = this.props.match.params.id.substring(1);
+        let placindexComma = querystring.indexOf(",");
+        let place = querystring.substring(0,placindexComma);
+        let worldOption = querystring.substring(placindexComma+1);
+        // console.log(this.props.match.params.id.substring(1));
+        console.log("place: ", place)
+        console.log("worldoption: ", worldOption)  
 
         if (learningMore){
             details = 
             <div class="detailedResult">
                 <div class="individualResult">
                         <p style= {{marginRight: '20px'}}>UV INDEX</p>
-                        <ProgressBar completed={90}/>
-                        <p style={{marginLeft: '20px', width: '30px'}}>9.0</p>
-                    </div>
-                    <div class="individualResult">
-                        <p style= {{marginRight: '20px'}}>TIME</p>
-                        <ProgressBar completed={50}/>
-                        <p style={{marginLeft: '20px', width: '30px'}}>5.0</p>
+                        <ProgressBar completed={this.state.items[0]['uv']*20}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>{this.state.items[0]['uv']}</p>
                     </div>
                     <div class="individualResult">
                         <p style= {{marginRight: '20px'}}>TEMP</p>
-                        <ProgressBar completed={80}/>
-                        <p style={{marginLeft: '20px', width: '30px'}}>8.0</p>
+                        <ProgressBar completed={this.state.items[1]['temp']*20}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>{this.state.items[1]['temp']}</p>
                     </div>
                     <div class="individualResult">
                         <p style= {{marginRight: '20px'}}>COVID-19</p>
-                        <ProgressBar completed={100}/>
-                        <p style={{marginLeft: '20px', width: '30px'}}>10.0</p>
+                        <ProgressBar completed={this.state.items[2]['covid']*20}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>{this.state.items[2]['covid']}</p>
                     </div>
                 </div>;
         } else {
@@ -99,9 +107,9 @@ export class Result extends React.Component{
         return(
             <div>
                  <div class="simpleResult">
-                    <h2>{score}</h2>
+                    {score}
                     <div>
-                    <p style={{marginTop: '28px'}}>{message}</p>
+                    <p style={{marginTop: '35px'}}>{message}</p>
                      {/* the score out of ten */}
                      {/* statement that says whether user should leave the house */}
                      <button onClick={this.handleLearnMore}>see why</button>
@@ -109,10 +117,9 @@ export class Result extends React.Component{
                      </div>
                  </div>
                  {details}
-                 {/* {this.state.items.map(item => (
-                     <div key={item.uv}>{item.uv} {item.temp}</div>
-                 ))} */}
-                 {console}
+                    {/* {items.map(item =>(
+                        <div key={item.uv}>{item.uv} {item.temp}></div>
+                    ))} */}
             </div>
         );
     }

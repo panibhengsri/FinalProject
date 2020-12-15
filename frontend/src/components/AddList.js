@@ -43,9 +43,9 @@ class AddList extends React.Component {
         this.setLoccArr = this.setLoccArr.bind(this);
         this.getCountries = this.getCountries.bind(this);
         this.getStates = this.getStates.bind(this);
-        this.sendToRes = this.sendToRes.bind(this);
+   
         
-        this.setLoccArr();
+        // this.setLoccArr();
         this.getCountries();
         this.getStates();
     }
@@ -141,21 +141,22 @@ class AddList extends React.Component {
 
     }
 
-    sendToRes = (element) => {
-        
-
-    }
+   
 
     render = () => {
         
         // this.setLoccArr();
         this.addCollec();
+        // this.sendMessage();
         // this.setLoccArr();
 
         console.log("array is initialized")
         if (this.state.locArr[0] == 1) {
             return (
                 <main>
+                     <div>
+                        <DropdownPlaces countries = {this.state.countries} states = {this.state.states} onLocationSubmit = {this.onLocationSubmit}></DropdownPlaces>
+                    </div>
                     <div>
                         Add location with the dropdown list above!
                     </div>
