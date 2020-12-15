@@ -75,13 +75,6 @@ export class Result extends React.Component{
         // "Maybe you should stay in today..."
         let message = 'You should go out today!';
         let details;
-        let querystring = this.props.match.params.id.substring(1);
-        let placindexComma = querystring.indexOf(",");
-        let place = querystring.substring(0,placindexComma);
-        let worldOption = querystring.substring(placindexComma+1);
-        // console.log(this.props.match.params.id.substring(1));
-        console.log("place: ", place)
-        console.log("worldoption: ", worldOption)
         // const allScores = Object.entries(items).forEach(entry => {
         //     const [key, value] = entry;
         // });    

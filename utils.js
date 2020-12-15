@@ -1117,7 +1117,8 @@ const rateTemperature = (temperature) => {
 const rateCovidState = (positiveIncrease, negativeIncrease) => {
     let proportions = positiveIncrease / (negativeIncrease + positiveIncrease);
     let covidOutOfFive = 0;
-    if (proportions < 0.2) {
+    // give a rating larger than 0 if the positiveIncrease is at most 50% of total tested cases
+    if (proportions < 0.5) {
         covidOutOfFive = ((1 - proportions) / (1)) * 5;
     }
     return covidOutOfFive.toFixed(2);
