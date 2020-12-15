@@ -60,8 +60,8 @@ export class Result extends React.Component{
     render(){
         const learningMore = this.state.learningMore;
         let score;
-        console.log(this.state.items[3]);
-        let goOut =  Boolean.parseBoolean(this.state.items[3]['goout']);
+        // console.log(this.state.items[3]);
+        // let goOut =  Boolean.parseBoolean(this.state.items[3]['goout']);
         // if (goOut['goout'] == 'false'){
         //     score = <img src={FrownyFace} alt="FrownyFace"/>;
         // } else {
