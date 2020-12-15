@@ -47,6 +47,11 @@ button {
   border-radius: 5px;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
+
 .simpleResult {
   display:flex;
   height: 100%;
@@ -65,6 +70,9 @@ button {
   color: #ffff;
 }
 
+.simpleResult button{
+  font-size: 14px;
+}
 
 .detailedResult{
   background: rgba(255,255,255,0.1);
