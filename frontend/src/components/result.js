@@ -55,9 +55,22 @@ export class Result extends React.Component{
         )
     }
 
+    getLocation = () => {
+        let querystring = this.props.match.params.id.substring(0);
+        let placindexComma = querystring.indexOf(",");
+        let place = querystring.substring(0, placindexComma);
+        let worldOption = querystring.substring(placindexComma + 1);
+
+        let returnObj = {};
+        returnObj["place"] = place;
+        returnObj["worldOption"] = worldOption;
+        return returnObj;
+    }
+
     render(){
         const learningMore = this.state.learningMore;
-        let score = '3/5';
+        let avgScore = (this.state.items[0]['uv'] + this.state.items[1]['temp'] + this.state.items[2]['covid'])/3;
+        let score = avgScore + '/5';
         // if goout is true, print "You should go out today!", if goout is false, print
         // "Maybe you should stay in today..."
         let message = 'You should go out today!';
