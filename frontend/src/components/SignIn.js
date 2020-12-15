@@ -49,9 +49,9 @@ class SignIn extends React.Component {
     render = () => {
         return (
             <>
-                <Link to = "/locations" onClick={this.signInWithGoogle}>
+                <button><Link to = "/locations" onClick={this.signInWithGoogle}>
                     Sign in with Google
-                </Link>
+                </Link></button>
                 <p style={{marginTop: '5px', color: 'white'}}>Do not violate the community guidelines or you will be banned for life!</p>
             </>
         );
