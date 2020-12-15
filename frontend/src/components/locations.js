@@ -26,9 +26,6 @@ class Locations extends React.Component{
     render(){
         return(
 		<div className="container">
-            <div>
-                <h1>Hello {this.props.auth.currentUser.displayName}</h1>
-            </div>
             
                 <section>
                 {this.props.user ? <AddList firestore={this.props.firestore} auth = {this.props.auth} /> : <SignIn firestore = {this.props.firestore} auth = {this.props.auth}/>}
