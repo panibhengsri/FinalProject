@@ -19,7 +19,10 @@ export class Result extends React.Component{
     }
 
     handleLearnMore() {
-        this.setState({learningMore: true});
+        this.setState({
+            learningMore: true,
+            items: this.state.items
+        });
     }
 
     componentDidMount(){
@@ -31,8 +34,11 @@ export class Result extends React.Component{
             for (let key in data){
                 let newObj = {};
                 newObj[key] = data[key];
-                this.state.items.push(newObj);
+                array.push(newObj);
             }
+            this.setState({
+                items: array
+            })
             console.log(this.state.items);
             // console.log(array);
             //     this.setState({
@@ -51,7 +57,6 @@ export class Result extends React.Component{
 
     render(){
         const learningMore = this.state.learningMore;
-        // const allScores = 
         let score = '3/5';
         // if goout is true, print "You should go out today!", if goout is false, print
         // "Maybe you should stay in today..."
@@ -68,35 +73,25 @@ export class Result extends React.Component{
         //     const [key, value] = entry;
         // });    
         // console.log(allScores);
+        // console.log(allScores)
 
         if (learningMore){
             details = 
             <div class="detailedResult">
                 <div class="individualResult">
                         <p style= {{marginRight: '20px'}}>UV INDEX</p>
-                        <ProgressBar completed={90}/>
-                        <p style={{marginLeft: '20px', width: '30px'}}>9.0</p>
-                    </div>
-                    <div class="individualResult">
-                        <p style= {{marginRight: '20px'}}>TIME</p>
-                        <ProgressBar completed={50}/>
-                        <p style={{marginLeft: '20px', width: '30px'}}>5.0</p>
+                        <ProgressBar completed={this.state.items[0]['uv']*20}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>{this.state.items[0]['uv']}</p>
                     </div>
                     <div class="individualResult">
                         <p style= {{marginRight: '20px'}}>TEMP</p>
-                        <ProgressBar completed={80}/>
-                        <p style={{marginLeft: '20px', width: '30px'}}>8.0</p>
+                        <ProgressBar completed={this.state.items[1]['temp']*20}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>{this.state.items[1]['temp']}</p>
                     </div>
                     <div class="individualResult">
                         <p style= {{marginRight: '20px'}}>COVID-19</p>
-                        <ProgressBar completed={100}/>
-                        <p style={{marginLeft: '20px', width: '30px'}}>10.0</p>
-                        {/* {Object.entries(items).map(([key,value]) =>( */}
-                        {/* // <li> {item.temp}</li>
-                        // <p>{item}</p>
-                        
-                        <div>{key}:{value.toString()}<br/></div>
-                    ))} */}
+                        <ProgressBar completed={this.state.items[2]['covid']*20}/>
+                        <p style={{marginLeft: '20px', width: '30px'}}>{this.state.items[2]['covid']}</p>
                     </div>
                 </div>;
         } else {
