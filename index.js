@@ -91,11 +91,13 @@ router.get('/rate/country', async (req, res) => {
     console.log("location: ", location);
 
     covidApi.getCountryCovidInfo(location, function (covidResponse){
-        let capital = utils.countriesCityMap[location];
-        console.log("capital: ", capital);
-        weatherApi.getCityWeather(capital, function (weatherResponse) {
-            let ratings = utils.rateForCountry(covidResponse, weatherResponse);
-            res.json(ratings);
+        utils.getCountriesCityMap(function (countriesCityMap) {
+            let capital = countriesCityMap[location];
+            console.log("capital: ", capital);
+            weatherApi.getCityWeather(capital, function (weatherResponse) {
+                let ratings = utils.rateForCountry(covidResponse, weatherResponse);
+                res.json(ratings);
+            })
         })
     })
     
