@@ -34,11 +34,16 @@ const getPassingCountries = (callback) => {
     covidApi.getAllCountriesCovid((countries) => {
         
         let passingCountries = [];
-        // only add countries that exist in both countriesCityMap and COVID database
+
         for (let index in countries) {
             let name = countries[index];
-            if (countriesCityMap[name] != undefined)
-                passingCountries.push(name);
+            // check if country is in both countriescitiesmap and covid database
+            if (countriesCityMap[name] != undefined) {
+                // check if capital of country is defined
+                if (countriesCityMap[name].city != null) {
+                    passingCountries.push(name);
+                }
+            }
         }
 
         callback(passingCountries);
