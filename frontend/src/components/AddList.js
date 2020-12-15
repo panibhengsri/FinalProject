@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-
+import DropdownPlaces from './DropdownPlaces.js';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -28,22 +28,27 @@ class AddList extends React.Component {
             locc: null,
             locArr: [1,2,3,4],
             countries: null,
-            states: null
+            states: null,
+            locationSelected: null,
+            worldOption: null,
+            apiResultsCountries: false,
+            apiResultsStates: false
         }
         console.log("addlist is made");
         
         this.sendMessage = this.sendMessage.bind(this);
+        this.onLocationSubmit = this.onLocationSubmit.bind(this);
         this.addCollec = this.addCollec.bind(this);
         this.setLoccArr = this.setLoccArr.bind(this);
         this.getCountries = this.getCountries.bind(this);
         this.getStates = this.getStates.bind(this);
-
         this.sendToRes = this.sendToRes.bind(this);
         
         this.setLoccArr();
         this.getCountries();
         this.getStates();
     }
+    /* UTILS FOR LOCATIONS DROP DOWN LIST*/
 
     // Get the list of countries
     getCountries = () => {
@@ -54,6 +59,7 @@ class AddList extends React.Component {
             )
             .then(result => {
                 this.setState({ countries: result.places });
+                this.setState({ apiResultsCountries: true });
                 console.log(result.places);
             },
                 (err) => {
@@ -70,12 +76,25 @@ class AddList extends React.Component {
             )
             .then(result => {
                 this.setState({ states: result.places });
+                this.setState({ apiResultsStates: true });
                 console.log(result.places);
             },
                 (err) => {
                     console.log("Error in getCountries: ", err);
                 })
     }
+
+    onLocationSubmit = (location, worldOption) => {
+        this.setState((prev) => ({
+            locationSelected: location,
+            worldOption: worldOption
+        }));
+        
+        console.log("location retrievd in addlist: ", location);
+        console.log("worldOption retrieved in addlist: ", worldOption);
+    }
+
+    /* (END)*/
 
 
     setLoccArr = () => {
@@ -133,35 +152,27 @@ class AddList extends React.Component {
         this.sendMessage();
         // this.setLoccArr();
 
-        if (this.state.locArr[0] == 1) {
-            return (
-                <main>
-                    <div>
-                        Add location with the dropdown list above!
-                    </div>
-                </main>
-            );
-        }
-        else {
-            console.log("array is initialized")
-            return (<>
-                <main>
-                    <div>
-                        {this.state.locArr.map((element) => {
-                            return <div> <Link to = "/result" className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
-                        })}
-                    </div>    
-                </main>
-                {/* COMMENTED OUT PLACEHOLDER FOR PANI'S {ADD LOCATION BUTTON (or SUBMIT)} */}
-                {/* <form onSubmit={sendMessage}> */}
-                {/*  */}
-                {/* <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" /> */}
-                {/*  */}
-                {/* <button type="submit" disabled={!formValue}>🕊️</button> */}
-                {/*  */}
-                {/* </form> */}
-            </>)
-        }
+        console.log("array is initialized")
+        return (<>
+            <main>
+                <div>
+                    <DropdownPlaces countries = {this.state.countries} states = {this.state.states} onLocationSubmit = {this.onLocationSubmit}></DropdownPlaces>
+                </div>
+                <div>
+                    {this.state.locArr.map((element) => {
+                        return <div> <Link to = "/result" className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
+                    })}
+                </div>    
+            </main>
+            {/* COMMENTED OUT PLACEHOLDER FOR PANI'S {ADD LOCATION BUTTON (or SUBMIT)} */}
+            {/* <form onSubmit={sendMessage}> */}
+            {/*  */}
+            {/* <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" /> */}
+            {/*  */}
+            {/* <button type="submit" disabled={!formValue}>🕊️</button> */}
+            {/*  */}
+            {/* </form> */}
+        </>)
 
     }
 }
