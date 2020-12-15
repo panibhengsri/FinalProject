@@ -6,21 +6,14 @@ import React from 'react';
 import { render } from 'react-dom';
 import ProgressBar from "./progressBar.js";
 
-
 export class Result extends React.Component{
     constructor(props){
         super(props);
         this.state={
             error: null,
             learningMore: false,
-            isLoaded: false,
-            items: {
-                "uv": null,
-                "temp": null,
-                "covid": null,
-                "goout": false
-            },
-            loc: null,
+            isLoaded: true,
+            items: []
         };
         this.handleLearnMore = this.handleLearnMore.bind(this);
     }
@@ -30,43 +23,51 @@ export class Result extends React.Component{
     }
 
     componentDidMount(){
-        var url = 'https://final-project-comp20.herokuapp.com/api/rate/country/?location=S.%20Korea';
+        var url = "https://final-project-comp20.herokuapp.com/api/rate/country/?location=S.%20Korea";
         fetch(url)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-            console.log('This is the data', data);
-                this.setState({
-                    isLoaded: true,
-                    items: data
-                    // uv: result.uv,
-                    // temp: result.temp,
-                    // covid: result.covid
-                });
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
+            let array = [];
+            for (let key in data){
+                let newObj = {};
+                newObj[key] = data[key];
+                this.state.items.push(newObj);
+            }
+            console.log(this.state.items);
+            // console.log(array);
+            //     this.setState({
+            //         isLoaded: false,
+            //         items: data.uv
+            //     });
+            // },
+            // (error) => {
+            //     this.setState({
+            //         isLoaded: false,
+            //         error
+            //     });
             }
         )
     }
 
-   
-
     render(){
         const learningMore = this.state.learningMore;
-        const {error, isLoaded, items} = this.state;
+        // const allScores = 
         let score = '3/5';
         // if goout is true, print "You should go out today!", if goout is false, print
         // "Maybe you should stay in today..."
         let message = 'You should go out today!';
         let details;
-        console.log("hey you this iekjfbwkjebfw");
-        console.log(this.props.match.params.id.substring(1));
-        // const query = new URLSearchParams(this.props.location.search);
-        // console.log("what is props? " + this.props);
-        // console.log(query.get("loc"));
+        let querystring = this.props.match.params.id.substring(1);
+        let placindexComma = querystring.indexOf(",");
+        let place = querystring.substring(0,placindexComma);
+        let worldOption = querystring.substring(placindexComma+1);
+        // console.log(this.props.match.params.id.substring(1));
+        console.log("place: ", place)
+        console.log("worldoption: ", worldOption)
+        // const allScores = Object.entries(items).forEach(entry => {
+        //     const [key, value] = entry;
+        // });    
+        // console.log(allScores);
 
         if (learningMore){
             details = 
@@ -90,6 +91,12 @@ export class Result extends React.Component{
                         <p style= {{marginRight: '20px'}}>COVID-19</p>
                         <ProgressBar completed={100}/>
                         <p style={{marginLeft: '20px', width: '30px'}}>10.0</p>
+                        {/* {Object.entries(items).map(([key,value]) =>( */}
+                        {/* // <li> {item.temp}</li>
+                        // <p>{item}</p>
+                        
+                        <div>{key}:{value.toString()}<br/></div>
+                    ))} */}
                     </div>
                 </div>;
         } else {
@@ -109,10 +116,9 @@ export class Result extends React.Component{
                      </div>
                  </div>
                  {details}
-                 {/* {this.state.items.map(item => (
-                     <div key={item.uv}>{item.uv} {item.temp}</div>
-                 ))} */}
-                 {console}
+                    {/* {items.map(item =>(
+                        <div key={item.uv}>{item.uv} {item.temp}></div>
+                    ))} */}
             </div>
         );
     }
