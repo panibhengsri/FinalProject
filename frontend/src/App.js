@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import './App.css';
-import Login from './components/login.js'
 import SignOut from './components/SignOut.js'
+import SignIn from './components/SignIn.js'
 import Result from './components/result.js'
-import routes from './components/routes.js';
+import Locations from './components/locations.js';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -20,7 +20,7 @@ import {
   Link
 } from "react-router-dom";
 
-import logo from './components/logo.png';
+import Logo from './components/logo.png';
 
 
 var config = {
@@ -45,27 +45,60 @@ function App() {
 
   const [user] = useAuthState(auth);
   const locayRef = useRef();
+  // if (auth.currentUser != null) {
+  //   return (
+  //     <div className="App">
+        
+  //       <Router>
+  //         <Switch>
+            
+  //           <Route path = "/result">
+              
+  //             <Result>
+  //             </Result>
+  //           </Route>
+  //           <Route path = "/locations">
+  //             <Locations auth={auth} firestore={firestore} user={user}></Locations>
+  //           </Route>
+  //           <Route path="/">
+  //             {/* Cannot use below routing because it links to results from login without checking user database */}
+              
+  //             <img style={{width: '300px'}} src={Logo} alt="Logo"/>
+  //             <Locations auth={auth} firestore={firestore} user={user}></Locations>
+  
+  //           </Route>
+  //         </Switch>
+  //       </Router>
+  //     </div>
+  //   );
+  // } else {
+    console.log("props.auth.currentuser is null");
+    return (
+      <div className="App">
+        
+        <Router>
+          <Switch>
+            
+            <Route path = "/result">
+              
+              <Result>
+              </Result>
+            </Route>
+            <Route path = "/locations">
+              <Locations auth={auth} firestore={firestore} user={user}></Locations>
+            </Route>
+            <Route path="/">
+              {/* Cannot use below routing because it links to results from login without checking user database */}
 
-  return (
-    <div className="App">
+              <img style={{width: '300px'}} src={Logo} alt="Logo"/>
+              <SignIn auth = {auth}></SignIn>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    );
+  // }
 
-      <Router>
-        <Switch>
-          <Route path = "/result">
-          </Route>
-          <Route path="/">
-            {/* Cannot use below routing because it links to results from login without checking user database */}
-            {/* <Link to="/result">
-              See your results
-              </Link> */}
-            <SignOut auth = {auth} />
-            <Login auth={auth} firestore={firestore} user={user}></Login>
-            <ul className="locay" ref={locayRef} id="locay"></ul>
-          </Route>
-        </Switch>
-      </Router>
-    </div>
-  );
 }
 
 function ChatMessage(props) {
