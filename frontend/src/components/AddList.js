@@ -43,9 +43,9 @@ class AddList extends React.Component {
         this.setLoccArr = this.setLoccArr.bind(this);
         this.getCountries = this.getCountries.bind(this);
         this.getStates = this.getStates.bind(this);
-        this.sendToRes = this.sendToRes.bind(this);
+   
         
-        this.setLoccArr();
+        // this.setLoccArr();
         this.getCountries();
         this.getStates();
     }
@@ -141,10 +141,7 @@ class AddList extends React.Component {
 
     }
 
-    sendToRes = (element) => {
-        
-
-    }
+   
 
     render = () => {
         
