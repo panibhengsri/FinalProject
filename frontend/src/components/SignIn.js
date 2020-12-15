@@ -43,7 +43,7 @@ class SignIn extends React.Component {
                 <button><Link to = "/locations" onClick={this.signInWithGoogle}>
                     Sign in with Google
                 </Link></button>
-                <p style={{marginTop: '5px', color: 'white'}}>Do not violate the community guidelines or you will be banned for life!</p>
+                <p style={{marginTop: '5px', color: 'white'}}>Brought to you by 4MichelinStars</p>
             </>
         );
     }
