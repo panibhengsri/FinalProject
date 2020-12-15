@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-
+import DropdownPlaces from './DropdownPlaces.js';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -28,22 +28,25 @@ class AddList extends React.Component {
             locc: null,
             locArr: [1,2,3,4],
             countries: null,
-            states: null
+            states: null,
+            locationSelected: null,
+            worldOption: null
         }
         console.log("addlist is made");
         
         this.sendMessage = this.sendMessage.bind(this);
+        this.onLocationSubmit = this.onLocationSubmit.bind(this);
         this.addCollec = this.addCollec.bind(this);
         this.setLoccArr = this.setLoccArr.bind(this);
         this.getCountries = this.getCountries.bind(this);
         this.getStates = this.getStates.bind(this);
-
         this.sendToRes = this.sendToRes.bind(this);
         
         this.setLoccArr();
         this.getCountries();
         this.getStates();
     }
+    /* UTILS FOR LOCATIONS DROP DOWN LIST*/
 
     // Get the list of countries
     getCountries = () => {
@@ -76,6 +79,15 @@ class AddList extends React.Component {
                     console.log("Error in getCountries: ", err);
                 })
     }
+
+    onLocationSubmit = (location) => {
+        this.setState({
+            locationSelected: location
+        });
+        console.log(location);
+    }
+
+    /* (END)*/
 
 
     setLoccArr = () => {
@@ -133,19 +145,22 @@ class AddList extends React.Component {
         this.sendMessage();
         // this.setLoccArr();
 
-        if (this.state.locArr[0] == 1) {
-            return (
-                <main>
-                    <div>
-                        Add location with the dropdown list above!
-                    </div>
-                </main>
-            );
-        }
-        else {
+        // if (this.state.locArr[0] == 1) {
+        //     return (
+        //         <main>
+        //             <div>
+        //                 Add location with the dropdown list above!
+        //             </div>
+        //         </main>
+        //     );
+        // }
+        // else {
             console.log("array is initialized")
             return (<>
                 <main>
+                    <div>
+                        <DropdownPlaces places = {this.state.countries} onLocationSubmit = {this.onLocationSubmit}></DropdownPlaces>
+                    </div>
                     <div>
                         {this.state.locArr.map((element) => {
                             return <div> <Link to = "/result" className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
@@ -161,7 +176,7 @@ class AddList extends React.Component {
                 {/*  */}
                 {/* </form> */}
             </>)
-        }
+        // }
 
     }
 }
