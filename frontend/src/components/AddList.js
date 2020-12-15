@@ -154,6 +154,9 @@ class AddList extends React.Component {
         if (this.state.locArr[0] == 1) {
             return (
                 <main>
+                     <div>
+                        <DropdownPlaces countries = {this.state.countries} states = {this.state.states} onLocationSubmit = {this.onLocationSubmit}></DropdownPlaces>
+                    </div>
                     <div>
                         Add location with the dropdown list above!
                     </div>
