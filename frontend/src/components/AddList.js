@@ -12,6 +12,13 @@ import 'firebase/analytics';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
 class AddList extends React.Component {
     constructor(props) {
         super(props);
@@ -19,15 +26,55 @@ class AddList extends React.Component {
         this.state = {
             me: this.props.firestore.collection(this.props.auth.currentUser.uid),
             locc: null,
-            locArr: [1,2,3,4]
+            locArr: [1,2,3,4],
+            countries: null,
+            states: null
         }
         console.log("addlist is made");
         
         this.sendMessage = this.sendMessage.bind(this);
         this.addCollec = this.addCollec.bind(this);
         this.setLoccArr = this.setLoccArr.bind(this);
+        this.getCountries = this.getCountries.bind(this);
+        this.getStates = this.getStates.bind(this);
+
+        this.sendToRes = this.sendToRes.bind(this);
         
         this.setLoccArr();
+        this.getCountries();
+        this.getStates();
+    }
+
+    // Get the list of countries
+    getCountries = () => {
+        var API_URL = "https://final-project-comp20.herokuapp.com/api/countries";
+        fetch(API_URL)
+            .then(
+                (response) => response.json()
+            )
+            .then(result => {
+                this.setState({ countries: result.places });
+                console.log(result.places);
+            },
+                (err) => {
+                    console.log("Error in getCountries: ", err);
+                })
+    }
+
+    // Get the list of States
+    getStates = () => {
+        var API_URL = "https://final-project-comp20.herokuapp.com/api/states";
+        fetch(API_URL)
+            .then(
+                (response) => response.json()
+            )
+            .then(result => {
+                this.setState({ states: result.places });
+                console.log(result.places);
+            },
+                (err) => {
+                    console.log("Error in getCountries: ", err);
+                })
     }
 
 
@@ -74,7 +121,10 @@ class AddList extends React.Component {
 
     }
 
+    sendToRes = (element) => {
+        
 
+    }
 
     render = () => {
         
@@ -98,7 +148,7 @@ class AddList extends React.Component {
                 <main>
                     <div>
                         {this.state.locArr.map((element) => {
-                            return <div> {element} </div>
+                            return <div> <Link to = "/result" className = {element} value = {element} onClick={() => {this.sendToRes(element)}}>{element}</Link>  </div>
                         })}
                     </div>    
                 </main>
