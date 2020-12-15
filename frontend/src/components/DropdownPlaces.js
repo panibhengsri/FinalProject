@@ -16,7 +16,8 @@ class DropdownPlaces extends React.Component {
         super(props);
 
         this.state = {
-            locationSelected: props.places[0]
+            locationSelected: null,
+            worldOption: "country"
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -24,18 +25,31 @@ class DropdownPlaces extends React.Component {
     }
 
     handleChange = (event) => {
+        if (event.target.value == "USA")
+            this.setState({worldOption: "state"});
+        else
+            this.setState({worldOption: "country"})
+        this.setState({
+            locationSelected: event.target.value
+        });
+    }
+
+    handleStatesChange = (event) => {
         this.setState({
             locationSelected: event.target.value
         });
     }
 
     handleSubmit = () => {
+        console.log("worldOption: ", this.state.worldOption);
+
         let location = this.state.locationSelected;
-        this.props.onLocationSubmit(location);
+        let worldOption = this.state.worldOption;
+        this.props.onLocationSubmit(location, worldOption);
     }
 
     render() {
-        if (this.props.places == null) {
+        if (this.props.countries == null || this.props.states == null) {
             return (
                 <div>
                     Loading places..
@@ -43,16 +57,37 @@ class DropdownPlaces extends React.Component {
             );
         }
         else {
-            return (
-                <div>
-                    <select onChange = {this.handleChange}>
-                        {this.props.places.map(function (place) {
-                            return <option>{place}</option>
-                        })}
-                    </select>
-                    <button onClick = {this.handleSubmit}>Add Location</button>
-                </div>
-            );
+            if (this.state.locationSelected == null)
+                this.setState({locationSelected: this.props.countries[0]});
+            if (this.state.worldOption == "country") {
+                return (
+                    <div>
+                        <select onChange={this.handleChange}>
+                            {this.props.countries.map(function (place) {
+                                return <option>{place}</option>
+                            })}
+                        </select>
+                        <button onClick={this.handleSubmit}>Add Location</button>
+                    </div>
+                );
+            }
+            else if (this.state.worldOption == "state") {
+                if (this.state.locationSelected == "USA")
+                    this.setState({ locationSelected: this.props.states[0] });
+                return (
+                    <div>
+                        <div>
+                            States
+                        </div>
+                        <select onChange={this.handleStatesChange}>
+                            {this.props.states.map(function (place) {
+                                return <option>{place}</option>
+                            })}
+                        </select>
+                        <button onClick={this.handleSubmit}>Add Location</button>
+                    </div>
+                );
+            }
         }
     }
 }
