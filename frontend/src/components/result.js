@@ -30,11 +30,12 @@ export class Result extends React.Component{
     componentDidMount(){
         var url = 'https://final-project-comp20.herokuapp.com/api/rate/country/?location=S.%20Korea';
         fetch(url)
-        .then(res => res.json())
-        .then(result => {
+        .then(response => response.json())
+        .then(data => {
+            console.log('This is the data', data);
                 this.setState({
                     isLoaded: true,
-                    items: result
+                    items: data
                     // uv: result.uv,
                     // temp: result.temp,
                     // covid: result.covid
@@ -102,6 +103,7 @@ export class Result extends React.Component{
                  {/* {this.state.items.map(item => (
                      <div key={item.uv}>{item.uv} {item.temp}</div>
                  ))} */}
+                 {console}
             </div>
         );
     }
