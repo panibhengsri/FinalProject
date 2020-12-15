@@ -23,6 +23,7 @@ class Login extends React.Component{
         return(
 		<div className="container">
             <img style={{width: '300px'}} src={Logo} alt="Logo"/>
+            {/* <br/> */}
             <section>
                 {this.props.user ? <AddList firestore={this.props.firestore} auth = {this.props.auth} /> : <SignIn firestore = {this.props.firestore} auth = {this.props.auth}/>}
             </section>
