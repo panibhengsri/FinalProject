@@ -90,7 +90,9 @@ class AddList extends React.Component {
             locationSelected: location,
             worldOption: worldOption
         }));
+        console.log(location);
         const res = location + ","  + worldOption;
+        console.log(res);
         this.sendMessage(res);
         
     }
@@ -115,12 +117,15 @@ class AddList extends React.Component {
     sendMessage = (place) => {
         
         const placeholder = "" + place;
+        console.log("from sendMessage: " + place);
         const me = this.props.firestore.collection(this.props.auth.currentUser.uid);
         const locc = me.doc('locations');
         // adds new location to array
         locc.update({
             locations: firebase.firestore.FieldValue.arrayUnion(placeholder)
         });
+
+        this.setLoccArr();
 
         // setFormValue('');
     }
@@ -147,7 +152,7 @@ class AddList extends React.Component {
         
         // this.setLoccArr();
         this.addCollec();
-        this.sendMessage();
+        // this.sendMessage();
         // this.setLoccArr();
 
         console.log("array is initialized")
@@ -167,6 +172,10 @@ class AddList extends React.Component {
             console.log("array is initialized")
             return (<>
                 <main>
+                    <div>
+                        <h1>Hello {this.props.auth.currentUser.displayName}</h1>
+                        
+                    </div>
                     <div>
                         <DropdownPlaces countries = {this.state.countries} states = {this.state.states} onLocationSubmit = {this.onLocationSubmit}></DropdownPlaces>
                     </div>
