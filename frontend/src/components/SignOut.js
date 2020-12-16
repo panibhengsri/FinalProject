@@ -20,7 +20,7 @@ class SignOut extends React.Component {
     
     render() {
         return this.props.auth.currentUser && (
-            <Link to = "/" className = {style.button} onClick={() => this.props.auth.signOut()}>Sign Out</Link> 
+            <Link to = "/" className = {style.button} onClick={() => this.props.auth.signOut()} style={{fontSize: '15px', borderRadius: '20px', backgroundColor: 'rgba(255,255,255,0.3)'}}>Sign Out</Link> 
         );
     }
 

@@ -162,7 +162,7 @@ class AddList extends React.Component {
                      <div>
                         <DropdownPlaces countries = {this.state.countries} states = {this.state.states} onLocationSubmit = {this.onLocationSubmit}></DropdownPlaces>
                     </div>
-                    <div>
+                    <div style= {{color: '#ffff', margin: '5px'}}>
                         Add location with the dropdown list above!
                     </div>
                 </main>

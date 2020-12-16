@@ -56,7 +56,7 @@ class DropdownPlaces extends React.Component {
         // Loading screen when API responses have not yet been retrieved
         if (this.props.countries == null || this.props.states == null) {
             return (
-                <div>
+                <div style={{color: '#ffff'}}>
                     Loading places..
                 </div>
             );
@@ -75,7 +75,7 @@ class DropdownPlaces extends React.Component {
                                 return <option>{place}</option>
                             })}
                         </select>
-                        <button onClick={this.handleSubmit}>Add Location</button>
+                        <button style={{margin: '10px', padding: '5px', fontSize: '13px'}} onClick={this.handleSubmit}>Add Location</button>
                     </div>
                 );
             }
@@ -94,7 +94,7 @@ class DropdownPlaces extends React.Component {
                                 return <option>{place}</option>
                             })}
                         </select>
-                        <button onClick={this.handleSubmit}>Add Location</button>
+                        <button style={{margin: '10px', padding: '5px', fontSize: '13px'}} onClick={this.handleSubmit}>Add Location</button>
                     </div>
                 );
             }

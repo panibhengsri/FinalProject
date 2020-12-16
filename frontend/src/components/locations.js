@@ -26,7 +26,9 @@ class Locations extends React.Component{
     render(){
         return(
 		<div className="container">
-            
+            <div>
+                <img style={{width: '200px'}} src={Logo} alt="Logo"/>
+            </div>
                 <section>
                 {this.props.user ? <AddList firestore={this.props.firestore} auth = {this.props.auth} /> : <SignIn firestore = {this.props.firestore} auth = {this.props.auth}/>}
             </section>
