@@ -39,12 +39,12 @@ class SignIn extends React.Component {
    
     render = () => {
         return (
-            <>
+            <div>
                 <button><Link to = "/locations" onClick={this.signInWithGoogle}>
                     Sign in with Google
                 </Link></button>
                 <p style={{marginTop: '5px', color: 'white'}}>Brought to you by 4MichelinStars</p>
-            </>
+            </div>
         );
     }
     
